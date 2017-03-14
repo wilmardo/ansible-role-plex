@@ -3,7 +3,7 @@
 - include: plex.yml
 
 - include: plexpy.yml
-  when: plexpy_install == yes
+  when: plexpy_install == "yes"
 
 - include: plexupdater.yml
-  when: plexupdater_install == yes
+  when: plexupdater_install == "yes"
