@@ -1,8 +1,0 @@
----
-# defaults for plexpy
-plexpy_install: yes
-plexpy_user: "plexpy"
-plexpy_group: "nogroup"
-plexpy_install_location: "/opt/plexpy/"
-plexpy_config_location: "/etc/plexpyconfig.ini"
-plexpy_data_location: "/opt/plexpy/data"

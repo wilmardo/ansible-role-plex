@@ -36,7 +36,7 @@
       systemd:
         daemon_reload: yes
 
-  when: !(ansible_distribution == 'Ubuntu' and ansible_distribution_version < '15.10')
+  when: not (ansible_distribution == 'Ubuntu' and ansible_distribution_version < '15.10')
 
 - block:
     - name: PLEXPY | Move init script for older ubuntu versions

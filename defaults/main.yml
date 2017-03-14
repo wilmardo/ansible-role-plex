@@ -1,3 +1,19 @@
 ---
-- include: plexpy.yml
-- include: plexupdater.yml
+# defaults for plexpy
+plexpy_install: yes
+plexpy_user: "plexpy"
+plexpy_group: "nogroup"
+plexpy_install_location: "/opt/plexpy/"
+plexpy_config_location: "/etc/plexpyconfig.ini"
+plexpy_data_location: "/opt/plexpy/data"
+
+# defaults for plexupdater
+plexupdater_install: yes
+plexupdater_install_location: "/opt/plexupdater/"
+plexupdater_config_location: "/etc/plexupdate.conf"
+plexupdater_cronconfig_location: "/etc/plexupdate.cron.conf"
+plexupdater_cronwrapper: "/etc/cron.daily/plexupdate"
+
+plexupdater_autoinstall: yes
+plexupdater_autoupdate: yes
+plexupdater_public: yes

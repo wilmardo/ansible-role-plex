@@ -7,7 +7,7 @@ Role Variables
 --------------
 There are several role variables seperated in two files:
 
-#####plexpy.yml
+##### Variables for PlexPy
 | Variable name           | Default value         | Description         |
 | ----------------------- | --------------------- | ------------------- |
 | plexpy_install          | yes                   | To install PlexPy   |
@@ -17,7 +17,7 @@ There are several role variables seperated in two files:
 | plexpy_config_location: | /etc/plexpyconfig.ini | PlexPy config file (recommended is to put it somewhere in /etc) |
 | plexpy_data_location:   | /opt/plexpy/data      | PlexPy datadir (recommended is to NOT put it in your PlexPy exec dir) |
 
-#####plexupdater.yml
+##### Variables for plexupdater
 | Variable name                     | Default value              | Description         |
 | --------------------------------- | -------------------------- | ------------------- |
 | plexupdater_install               | yes                        | To install plexupdater   |
