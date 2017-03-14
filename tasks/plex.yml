@@ -1,0 +1,36 @@
+---
+- block:
+    - name: PLEX | Add Plex Yum repo
+      yum_repository:
+        name: plex
+        description: Plex Yum Repository
+        baseurl: https://downloads.plex.tv/repo/rpm/$basearch/
+        gpgkey: https://downloads.plex.tv/plex-keys/PlexSign.key
+        gpgcheck: yes
+
+    - name: PLEX | Yum install Plex
+      yum:
+        name: plexmediaserver
+        state: present
+        update_cache: yes
+
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+
+- block:
+    - name: PLEX | Add Plex Apt repo
+      apt_repository:
+        repo: "ppa:plexapp/plexht"
+
+    - name: PLEX | Apt install Plex
+      apt:
+        name: plexmediaserver
+        state: present
+        update_cache: yes
+
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+- name: PLEX | Autostart Plex and start service
+  service:
+    name: plexmediaserver
+    state: started
+    enabled: yes

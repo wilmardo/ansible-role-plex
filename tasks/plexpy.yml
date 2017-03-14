@@ -1,0 +1,62 @@
+---
+- name: PLEX | Install git
+  package:
+    name: git
+    state: present
+
+- name: PLEXPY | Create user
+  user:
+    name: "{{ plexpy_user }}"
+    group: "{{ plexpy_group }}"
+    createhome: no
+
+- name: PLEXPY | Clone Plexpy repo
+  git:
+    repo: https://github.com/JonnyWong16/plexpy
+    branch: master
+    dest: "{{ plexpy_install_location }}"
+
+- name: PLEXPY | Set permissions
+  file:
+    path: "{{ plexpy_install_location }}"
+    owner: "{{ plexpy_user }}"
+    group: "{{ plexpy_group }}"
+    recurse: yes
+
+- block:
+    - name: PLEXPY | Move init script for using systemd
+      copy:
+        src: plexpy/init.systemd.tpl
+        dest: /lib/systemd/system/plexpy.service
+        owner: root
+        group: root
+        mode: 0744
+
+    - name: PLEXPY | Reload systemd daemon
+      systemd:
+        daemon_reload: yes
+
+  when: !(ansible_distribution == 'Ubuntu' and ansible_distribution_version < '15.10')
+
+- block:
+    - name: PLEXPY | Move init script for older ubuntu versions
+      file:
+        src: "{{ plexpy_install_location }}/init-scripts/init.ubuntu"
+        dest: /etc/init.d/plexpy
+        owner: root
+        group: root
+        mode: 0744
+        state: link
+
+    - name: PLEXPY | Set defaults in file
+      copy:
+        src: plexpy/ubuntu-plexpy
+        dest: /etc/default/plexpy
+
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version < '15.10
+
+- name: PLEXPY | Autostart Plexpy and start service
+  service:
+    name: plexpy
+    state: started
+    enabled: yes

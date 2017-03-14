@@ -1,0 +1,3 @@
+---
+- include: plexpy.yml
+- include: plexupdater.yml

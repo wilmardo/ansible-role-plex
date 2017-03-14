@@ -1,0 +1,18 @@
+---
+- name: PLEXUPDATER | Install git
+  package:
+    name: git
+    state: present
+
+- name: PLEXUPDATER | Copy plexupdater install script
+  copy:
+    src: plexupdater/installer.sh.tpl
+    dest: /root/installer.sh
+
+- name: PLEXUPDATER | Install plexupdater
+  command: sh /root/installer.sh
+
+- name: PLEXUPDATER | Cleanup install script
+  file:
+    path: /root/installer.sh
+    state: absent
