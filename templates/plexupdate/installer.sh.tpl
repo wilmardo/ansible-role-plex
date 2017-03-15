@@ -1,15 +1,15 @@
 #!/bin/bash
 
 ORIGIN_REPO="https://github.com/${GIT_OWNER:-mrworf}/plexupdate"
-FULL_PATH="{{ plexupdater_install_location }}"
-CONFIGFILE="{{ plexupdater_config_location }}"
-CONFIGCRON="{{ plexupdater_cronconfig_location }}"
-CRONWRAPPER="{{ plexupdater_cronwrapper }}"
+FULL_PATH="{{ plexupdate_install_location }}"
+CONFIGFILE="{{ plexupdate_config_location }}"
+CONFIGCRON="{{ plexupdate_cronconfig_location }}"
+CRONWRAPPER="{{ plexupdate_cronwrapper }}"
 
 # default options
-AUTOINSTALL={{ plexupdater_autoinstall }}
-AUTOUPDATE={{ plexupdater_autoupdate }}
-PUBLIC={{ plexupdater_public }}
+AUTOINSTALL={{ plexupdate_autoinstall }}
+AUTOUPDATE={{ plexupdate_autoupdate }}
+PUBLIC={{ plexupdate_public }}
 
 VERBOSE=yes #to be inherited by get-plex-token, do not save to config
 AUTODELETE=yes #remove package after download and install

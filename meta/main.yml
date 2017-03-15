@@ -31,6 +31,6 @@ galaxy_info:
     - plex
     - plexmediaserver
     - plexpy
-    - plexupdater
+    - plexupdate
 
 dependencies: []

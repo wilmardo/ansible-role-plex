@@ -1,18 +1,21 @@
 ---
-- name: PLEXUPDATER | Install git
+- name: PLEXUPDATE | Install git
   package:
-    name: git
+    name: "{{ item }}"
     state: present
+  with_items:
+    - wget
+    - git
 
-- name: PLEXUPDATER | Copy plexupdater install script
-  copy:
-    src: plexupdater/installer.sh.tpl
+- name: PLEXUPDATE | Copy plexupdate install script
+  template:
+    src: plexupdate/installer.sh.tpl
     dest: /root/installer.sh
 
-- name: PLEXUPDATER | Install plexupdater
+- name: PLEXUPDATE | Install plexupdate
   command: sh /root/installer.sh
 
-- name: PLEXUPDATER | Cleanup install script
+- name: PLEXUPDATE | Cleanup install script
   file:
     path: /root/installer.sh
     state: absent

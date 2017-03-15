@@ -9,7 +9,7 @@ ExecStart={{ plexpy_install_location }}PlexPy.py --quiet --daemon --nolaunch --c
 GuessMainPID=no
 Type=forking
 User={{ plexpy_user }}
-Group=nogroup
+Group={{ plexpy_group }}
 
 [Install]
 WantedBy=multi-user.target

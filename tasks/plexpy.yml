@@ -5,6 +5,11 @@
     state: present
 
 - name: PLEXPY | Create user
+  group:
+    name: "{{ plexpy_group }}"
+    state: present
+
+- name: PLEXPY | Create user
   user:
     name: "{{ plexpy_user }}"
     group: "{{ plexpy_group }}"
@@ -13,7 +18,6 @@
 - name: PLEXPY | Clone Plexpy repo
   git:
     repo: https://github.com/JonnyWong16/plexpy
-    branch: master
     dest: "{{ plexpy_install_location }}"
 
 - name: PLEXPY | Set permissions
@@ -25,15 +29,18 @@
 
 - block:
     - name: PLEXPY | Move init script for using systemd
-      copy:
+      template:
         src: plexpy/init.systemd.tpl
         dest: /lib/systemd/system/plexpy.service
         owner: root
         group: root
-        mode: 0744
+        mode: 0644
 
-    - name: PLEXPY | Reload systemd daemon
+    - name: PLEXPY | Autostart Plexpy and start service
       systemd:
+        name: plexpy
+        state: started
+        enabled: yes
         daemon_reload: yes
 
   when: not (ansible_distribution == 'Ubuntu' and ansible_distribution_version < '15.10')
@@ -49,14 +56,14 @@
         state: link
 
     - name: PLEXPY | Set defaults in file
-      copy:
-        src: plexpy/ubuntu-plexpy
+      template:
+        src: plexpy/ubuntu-plexpy.tpl
         dest: /etc/default/plexpy
 
-  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version < '15.10
+    - name: PLEXPY | Autostart Plexpy and start service
+      service:
+        name: plexpy
+        state: started
+        enabled: yes
 
-- name: PLEXPY | Autostart Plexpy and start service
-  service:
-    name: plexpy
-    state: started
-    enabled: yes
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version < '15.10'
