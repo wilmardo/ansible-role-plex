@@ -7,15 +7,24 @@
     - wget
     - git
 
-- name: PLEXUPDATE | Copy plexupdate install script
+- name: PLEXUPDATE | Clone plexupdate repository
+  git:
+    repo: https://github.com/mrworf/plexupdate.git
+    dest: "{{ plexupdate_install_location }}"
+
+- name: PLEXUPDATE | Create desired config
   template:
-    src: plexupdate/installer.sh.tpl
-    dest: /root/installer.sh
+    src: plexupdate/plexupdate.conf.tpl
+    dest: "{{ plexupdate_config_location }}"
 
-- name: PLEXUPDATE | Install plexupdate
-  command: sh /root/installer.sh
+- name: PLEXUPDATE | Create cron config
+  template:
+    src: plexupdate/plexupdate.cron.conf.tpl
+    dest: "/etc/plexupdate.cron.conf"
 
-- name: PLEXUPDATE | Cleanup install script
+- name: PLEXUPDATE | Create cron job
   file:
-    path: /root/installer.sh
-    state: absent
+    src: "{{ plexupdate_install_location }}/extras/cronwrapper"
+    dest: "{{ plexupdate_cronwrapper }}"
+    state: link
+  when: plexupdate_autoinstall or plexupdate_autoupdate

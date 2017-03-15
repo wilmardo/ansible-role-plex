@@ -1,0 +1,10 @@
+---
+- name: restart plex
+  service:
+    name: plexmediaserver
+    state: restarted
+
+- name: restart plexpy
+  service:
+    name: plexmediaserver
+    state: restarted

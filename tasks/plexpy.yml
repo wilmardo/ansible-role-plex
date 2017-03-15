@@ -36,12 +36,12 @@
         group: root
         mode: 0644
 
-    - name: PLEXPY | Autostart Plexpy and start service
+    - name: PLEXPY | Autostart Plexpy and restart service
       systemd:
         name: plexpy
-        state: started
         enabled: yes
         daemon_reload: yes
+      notify: restart plexpy
 
   when: not (ansible_distribution == 'Ubuntu' and ansible_distribution_version < '15.10')
 
@@ -60,10 +60,10 @@
         src: plexpy/ubuntu-plexpy.tpl
         dest: /etc/default/plexpy
 
-    - name: PLEXPY | Autostart Plexpy and start service
+    - name: PLEXPY | Autostart Plexpy and restart service
       service:
         name: plexpy
-        state: started
         enabled: yes
+      notify: restart plexpy
 
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_version < '15.10'

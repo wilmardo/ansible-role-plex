@@ -20,13 +20,12 @@ There are several role variables, they can be set in the hosts_vars/group_vars:
 ### Variables for plexupdate
 | Variable name                     | Default value              | Description         |
 | --------------------------------- | -------------------------- | ------------------- |
-| plexupdate_install                | yes                        | To install plexupdate
+| plexupdate_install                | yes                        | To install Plexupdate
 | plexupdate_install_location       | /opt/plexupdate/           | Plexupdate install location
 | plexupdate_config_location        | /etc/plexupdate.conf       | Plexupdate config location
-| plexupdate_cronconfig_location    | /etc/plexupdate.cron.conf  | Plexupdate cron config location
-| plexupdate_cronwrapper:           | /etc/cron.daily/plexupdate | Set the cron wrapper for plexupdate
-| plexupdate_autoinstall            | yes                        | Enables autoupdates for plex, will defer the update when plex is in use
-| plexupdate_autoupdate             | yes                        | Enables autoupdater for plexupdate
+| plexupdate_cronwrapper:           | /etc/cron.daily/plexupdate | Set the cron wrapper for Plexupdate
+| plexupdate_autoinstall            | yes                        | Enables autoupdates for Plex, will defer the update when Plex is in use
+| plexupdate_autoupdate             | yes                        | Enables autoupdater for Plexupdate
 | plexupdate_public                 | yes                        | Select the update channel, set no when using a Plex Pass
 
 
@@ -38,6 +37,10 @@ The following playbook is all you need to get started. All the above variables h
     - hosts: plexservers
       roles:
          - { role: wilmardo.plex }
+         
+ After running the playbook Plex and PlexPy need to be setup:
+  - Plex can be found at http://ipadress:32400/web
+  - PlexPy can be foudn at http://ipaddress:8181
 
 License
 -------

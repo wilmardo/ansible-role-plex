@@ -11,9 +11,9 @@ plexpy_data_location: "/opt/plexpy/data"
 plexupdate_install: yes
 plexupdate_install_location: "/opt/plexupdate/"
 plexupdate_config_location: "/etc/plexupdate.conf"
-plexupdate_cronconfig_location: "/etc/plexupdate.cron.conf"
 plexupdate_cronwrapper: "/etc/cron.daily/plexupdate"
 
 plexupdate_autoinstall: yes
 plexupdate_autoupdate: yes
 plexupdate_public: yes
+plexupdate_notify: no

@@ -32,5 +32,5 @@
 - name: PLEX | Autostart Plex and start service
   service:
     name: plexmediaserver
-    state: started
     enabled: yes
+  notify: restart plex
