@@ -7,3 +7,6 @@
 
 - include: plexupdate.yml
   when: plexupdate_install
+
+- include: postfix.yml
+  when: plexupdate_notify
