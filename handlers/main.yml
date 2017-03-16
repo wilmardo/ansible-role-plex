@@ -6,5 +6,5 @@
 
 - name: restart plexpy
   service:
-    name: plexmediaserver
+    name: plexpy
     state: restarted
