@@ -8,7 +8,7 @@ plexpy_config_location: "/etc/plexpyconfig.ini"
 plexpy_data_location: "/opt/plexpy/data"
 
 # defaults for plexupdate
-plexupdate_install: yes
+plexupdate_install: no
 plexupdate_install_location: "/opt/plexupdate/"
 plexupdate_config_location: "/etc/plexupdate.conf"
 plexupdate_cronwrapper: "/etc/cron.daily/plexupdate"

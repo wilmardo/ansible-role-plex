@@ -20,7 +20,7 @@ There are several role variables, they can be set in the hosts_vars/group_vars:
 ### Variables for plexupdate
 | Variable name                     | Default value              | Description         |
 | --------------------------------- | -------------------------- | ------------------- |
-| plexupdate_install                | yes                        | To install Plexupdate
+| plexupdate_install                | no                         | To install Plexupdate. Enable when not Ubuntu or Centos/Fedora 
 | plexupdate_install_location       | /opt/plexupdate/           | Plexupdate install location
 | plexupdate_config_location        | /etc/plexupdate.conf       | Plexupdate config location
 | plexupdate_cronwrapper:           | /etc/cron.daily/plexupdate | Set the cron wrapper for Plexupdate
