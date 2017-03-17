@@ -1,11 +1,4 @@
 - hosts: localhost
   become: yes
-
-  gather_facts: false
-  pre_tasks:
-    - name: PLEX | Check for python2
-      raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
-      ignore_errors: yes
-    - setup: # Enable gather_facts again
   roles:
     - role: ../Ansible-Plex
