@@ -8,4 +8,4 @@
       ignore_errors: yes
     - setup: # Enable gather_facts again
   roles:
-    - role: ansible-plex
+    - role: ../Ansible-Plex
