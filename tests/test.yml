@@ -1,4 +1,4 @@
 - hosts: localhost
   become: yes
   roles:
-    - role: ../../wilmardo.plex
+    - role: ansible-plex
