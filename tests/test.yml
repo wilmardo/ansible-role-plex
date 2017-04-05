@@ -1,4 +1,4 @@
 - hosts: localhost
   become: yes
   roles:
-    - role: ../Ansible-Plex
+    - role: ../ansible-plex
