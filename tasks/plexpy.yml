@@ -30,7 +30,7 @@
 - block:
     - name: PLEXPY | Move init script for using systemd
       template:
-        src: plexpy/init.systemd.tpl
+        src: plexpy/init.systemd.jinja2
         dest: /lib/systemd/system/plexpy.service
         owner: root
         group: root
@@ -43,7 +43,30 @@
         daemon_reload: yes
       notify: restart plexpy
 
-  when: not (ansible_distribution == 'Ubuntu' and ansible_distribution_version < '15.10')
+  when: (ansible_distribution == 'Ubuntu' and ansible_distribution_version >= '16.04') or (ansible_distribution == 'Centos' and ansible_distribution_version == '7')
+
+- block:
+    - name: PLEXPY | Move init script for centos versions
+      file:
+        src: "{{ plexpy_install_location }}/init-scripts/init.fedora.centos.service"
+        dest: /etc/init.d/plexpy
+        owner: root
+        group: root
+        mode: 0744
+        state: link
+
+    - name: PLEXPY | Set defaults in file
+      template:
+        src: plexpy/centos-plexpy.jinja2
+        dest: /etc/default/plexpy
+
+    - name: PLEXPY | Autostart Plexpy and restart service
+      service:
+        name: plexpy
+        enabled: yes
+      notify: restart plexpy
+
+  when: ansible_distribution == 'Centos' and ansible_distribution_version == '6'
 
 - block:
     - name: PLEXPY | Move init script for older ubuntu versions
@@ -57,7 +80,7 @@
 
     - name: PLEXPY | Set defaults in file
       template:
-        src: plexpy/ubuntu-plexpy.tpl
+        src: plexpy/ubuntu-plexpy.jinja2
         dest: /etc/default/plexpy
 
     - name: PLEXPY | Autostart Plexpy and restart service
@@ -66,4 +89,4 @@
         enabled: yes
       notify: restart plexpy
 
-  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version < '15.10'
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version <= '15.10'
