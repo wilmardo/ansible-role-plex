@@ -1,4 +1,4 @@
-Plex [![Build Status](https://travis-ci.org/wilmardo/plex.svg?branch=master)](https://travis-ci.org/wilmardo/plex)
+Plex [![Build Status](https://travis-ci.org/wilmardo/ansible-plex.svg?branch=master)](https://travis-ci.org/wilmardo/ansible-plex)
 =========
 
 The ultimate Plex role for Ansible, install [Plex](https://www.plex.tv/), [PlexPy](https://github.com/JonnyWong16/plexpy) and [Plexupdate](https://github.com/mrworf/plexupdate) in a whimp.
