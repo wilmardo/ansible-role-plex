@@ -11,9 +11,6 @@ env:
   - LXC_DISTRO=ubuntu LXC_RELEASE=trusty
   - LXC_DISTRO=centos LXC_RELEASE=7
   - LXC_DISTRO=centos LXC_RELEASE=6
-before_install:
-  - sudo apt-get -qq update
-  - sudo apt-get -y install python-apt
 before_cache:
 - sudo mkdir $HOME/lxc && sudo tar cf $HOME/lxc/cache.tar /var/cache/lxc/ && sudo chown $USER. $HOME/lxc/cache.tar
 install:
