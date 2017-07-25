@@ -3,5 +3,9 @@
 - hosts: localhost
   connection: local
   become: yes
+  pre_tasks:
+    - command: apt-get install -y python-apt
+      when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
   roles:
     - { name: ansible-plex }
