@@ -3,7 +3,5 @@
 - hosts: localhost
   connection: local
   become: yes
-  pre_tasks:
-    - command: apt-get -y install python-apt
   roles:
     - { name: ansible-plex }
