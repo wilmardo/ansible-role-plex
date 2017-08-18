@@ -4,17 +4,5 @@
   connection: local
   become: yes
 
-  pre_tasks:
-    - name: Symlink OS python-apt into Travis Python virtualenv
-      file:
-        src: "/usr/lib/python2.7/dist-packages/{{ item }}"
-        path: "{{ lookup('env', 'VIRTUAL_ENV') }}/lib/python2.7/site-packages/{{ item }}"
-        state: link
-      with_items:
-        - apt
-        - apt_pkg.so
-        - apt_inst.so
-        - aptsources
-
   roles:
     - { name: ansible-plex }
