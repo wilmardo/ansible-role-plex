@@ -18,15 +18,11 @@ install:
   - sudo apt-get install -y expect-dev
   - pip install ansible
   - ansible --version
-  - printf '[defaults]\nroles_path=../\ncallback_whitelist=profile_tasks' >ansible.cfg
-before_script:
   - ansible-galaxy install lae.travis-lxc
+  - ansible-playbook -vvv tests/install.yml
 script:
-  - cat test01.lxc
-  - ansible-playbook -i test01.lxc, .travis-playbook.yml --syntax-check
-  - ANSIBLE_STDOUT_CALLBACK=debug ansible-playbook -i test01.lxc, -vvv .travis-playbook.yml
-  - unbuffer ansible-playbook -i test01.lxc, .travis-playbook.yml >/tmp/idempotency.log 2>&1
-  - 'grep -A1 "PLAY RECAP" /tmp/idempotency.log | grep -qP "changed=0.*failed=0" &&
-    (echo "Idempotence: PASS"; exit 0) || (echo "Idempotence: FAIL"; cat /tmp/idempotency.log;
-    exit 1)'
+  - ansible-playbook tests/test.yml -i tests/inventory --syntax-check
+  - ansible-playbook tests/test.yml -i tests/inventory  - ANSIBLE_STDOUT_CALLBACK=debug ansible-playbook -i test01.lxc, -vvv .travis-playbook.yml
+  - unbuffer ansible-playbook -vvv tests/test.yml -i tests/inventory >/tmp/idempotency.log 2>&1
+  - 'grep -A1 "PLAY RECAP" /tmp/idempotency.log | grep -qP "changed=0.*failed=0" && (echo "Idempotence: PASS"; exit 0) || (echo "Idempotence: FAIL"; cat /tmp/idempotency.log; exit 1)'
   - ssh root@test01.lxc /bin/bash -c "PAGER=cat journalctl -xn || cat /var/log/messages || cat /var/log/syslog"

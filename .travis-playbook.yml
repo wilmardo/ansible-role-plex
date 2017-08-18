@@ -1,9 +1,0 @@
-#https://github.com/lae/ansible-role-travis-lxc
----
-- hosts: localhost
-  connection: local
-  become: yes
-
-  roles:
-    - { name: lae.travis-lxc }
-    - { name: ansible-plex }
