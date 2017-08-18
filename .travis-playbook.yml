@@ -5,5 +5,5 @@
   become: yes
 
   roles:
-    - { name: travis-lxc }
+    - { name: lae.travis-lxc }
     - { name: ansible-plex }

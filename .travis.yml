@@ -22,7 +22,6 @@ install:
 before_script:
   - ansible-galaxy install lae.travis-lxc
 script:
-  - cat /etc/*-release || cat /etc/*_version
   - cat test01.lxc
   - ansible-playbook -i test01.lxc, .travis-playbook.yml --syntax-check
   - ANSIBLE_STDOUT_CALLBACK=debug ansible-playbook -i test01.lxc, -vvv .travis-playbook.yml
