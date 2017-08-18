@@ -18,7 +18,8 @@ install:
   - sudo apt-get install -y expect-dev
   - pip install ansible
   - ansible --version
-  - sudo ansible-galaxy install lae.travis-lxc
+before_script:
+  - ansible-galaxy install lae.travis-lxc
   - ansible-playbook -vvv tests/install.yml
 script:
   - ansible-playbook tests/test.yml -i tests/inventory --syntax-check
