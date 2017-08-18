@@ -17,10 +17,12 @@ install:
   - sudo tar xf $HOME/lxc/cache.tar -C / || true
   - sudo apt-get install -y expect-dev
   - pip install ansible
+  - ansible-galaxy install lae.travis-lxc
   - ansible --version
   - printf '[defaults]\nroles_path=../\ncallback_whitelist=profile_tasks' >ansible.cfg
 script:
   - cat /etc/*-release || cat /etc/*_version
+  - cat test01.lxc
   - ansible-playbook -i test01.lxc, .travis-playbook.yml --syntax-check
   - ANSIBLE_STDOUT_CALLBACK=debug ansible-playbook -i test01.lxc, -vvv .travis-playbook.yml
   - unbuffer ansible-playbook -i test01.lxc, .travis-playbook.yml >/tmp/idempotency.log 2>&1
