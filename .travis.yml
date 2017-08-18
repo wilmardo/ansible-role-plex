@@ -18,7 +18,7 @@ install:
   - sudo apt-get install -y expect-dev
   - pip install ansible
   - ansible --version
-  - printf '[defaults]\\nroles_path=../\\ncallback_whitelist=profile_tasks' >ansible.cfg
+  - printf '[defaults]\nroles_path=../\ncallback_whitelist=profile_tasks' >ansible.cfg
 before_script:
   - ansible-galaxy install lae.travis-lxc
   - ansible-playbook -vvv tests/install.yml
