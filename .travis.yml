@@ -42,8 +42,8 @@ script:
 #  - 'grep -A1 "PLAY RECAP" /tmp/idempotency.log | grep -qP "changed=0.*failed=0" && (echo "Idempotence: PASS"; exit 0) || (echo "Idempotence: FAIL"; cat /tmp/idempotency.log; exit 1)'
   - if [ ! "$ANSIBLE_VERSION" ]; then ssh root@test01.lxc /bin/bash -c "PAGER=cat journalctl -xn || cat /var/log/messages || cat /var/log/syslog"; fi
 
-deploy:
-  - provider: script
-    script: deploy/deploy.sh plex
-    on:
-      branch: master
+#deploy:
+#  - provider: script
+#    script: deploy/deploy.sh plex
+#    on:
+#      branch: master
