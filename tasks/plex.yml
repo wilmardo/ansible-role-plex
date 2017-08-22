@@ -17,7 +17,7 @@
   when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
 
 - name: PLEX | On Debian check for systemd or sysvinit
-  command: [[ -L "/sbin/init" ]] && echo 'systemd' || echo 'systemV'
+  command: '[[ -L "/sbin/init" ]] && echo "systemd" || echo "systemV"'
   register: plex_init_system
   when: ansible_distribution == 'Debian'
 
