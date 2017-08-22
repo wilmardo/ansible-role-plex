@@ -12,11 +12,11 @@ env:
   - LXC_DISTRO=ubuntu LXC_RELEASE=trusty
   - LXC_DISTRO=centos LXC_RELEASE=7
   - LXC_DISTRO=centos LXC_RELEASE=6
-  - ANSIBLE_VERSION='ansible=>1.9.0,<2.0.0' #EOL 2016-04-15
-  - ANSIBLE_VERSION='ansible=>2.0.0,<2.1.0' #EOL 2016-04-19
-  - ANSIBLE_VERSION='ansible=>2.1.0,<2.2.0' #EOL 2017-06-01
-  - ANSIBLE_VERSION='ansible=>2.2.0,<2.3.0' #EOL 2017-05-09
-  - ANSIBLE_VERSION='ansible=>2.3.0,<2.4.0' #EOL 2017-06-01
+  - ANSIBLE_VERSION='ansible>=1.9.0,<2.0.0' #EOL 2016-04-15
+  - ANSIBLE_VERSION='ansible>=2.0.0,<2.1.0' #EOL 2016-04-19
+  - ANSIBLE_VERSION='ansible>=2.1.0,<2.2.0' #EOL 2017-06-01
+  - ANSIBLE_VERSION='ansible>=2.2.0,<2.3.0' #EOL 2017-05-09
+  - ANSIBLE_VERSION='ansible>=2.3.0,<2.4.0' #EOL 2017-06-01
 
 before_cache:
   - sudo mkdir $HOME/lxc && sudo tar cf $HOME/lxc/cache.tar /var/cache/lxc/ && sudo chown $USER. $HOME/lxc/cache.tar
