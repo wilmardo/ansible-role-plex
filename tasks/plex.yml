@@ -17,9 +17,12 @@
   when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
 
 - name: PLEX | On Debian check for systemd or sysvinit
-  command: "test -x /sbin/initctl && /sbin/initctl --version | grep -q upstart || echo false"
+  shell: "test -x /sbin/initctl && /sbin/initctl --version | grep -q upstart || echo false"
   register: plex_upstart
   when: ansible_distribution == 'Debian'
+
+- debug:
+    var: plex_upstart
 
 - block:
     - name: PLEX | Install apt-transport-https
