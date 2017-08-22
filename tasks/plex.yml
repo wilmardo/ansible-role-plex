@@ -17,8 +17,8 @@
   when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
 
 - name: PLEX | On Debian check for systemd or sysvinit
-  command: '[[ -L "/sbin/init" ]] && echo "systemd" || echo "systemV"'
-  register: plex_init_system
+  command: "test -x /sbin/initctl && /sbin/initctl --version | grep -q upstart || echo false"
+  register: plex_upstart
   when: ansible_distribution == 'Debian'
 
 - block:
@@ -39,7 +39,7 @@
             url: https://downloads.plex.tv/plex-keys/PlexSign.key
             state: present
 
-      when: ansible_distribution == 'Ubuntu' or plex_init_system.stdout == 'systemd'
+      when: ansible_distribution == 'Ubuntu' or plex_upstart.stdout == 'false'
 
     - block:
       # Add ninthgate repository
@@ -53,7 +53,7 @@
             url: http://shell.ninthgate.se/packages/shell.ninthgate.se.gpg.key
             state: present
 
-      when: plex_init_system.stdout == 'systemV'
+      when: plex_upstart.stdout == 'success'
 
     - name: PLEX | Apt install Plex
       apt:
