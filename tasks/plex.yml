@@ -16,21 +16,44 @@
 
   when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
 
+- name: PLEX | On Debian check for systemd or sysvinit
+  command: [[ -L "/sbin/init" ]] && echo 'systemd' || echo 'systemV'
+  register: plex_init_system
+  when: ansible_distribution == 'Debian'
+
 - block:
     - name: PLEX | Install apt-transport-https
       apt:
         name: apt-transport-https
         state: present
 
-    - name: PLEX | Add Plex Apt repo
-      apt_repository:
-        repo: deb https://downloads.plex.tv/repo/deb/ public main
-        state: present
+    - block:
+      # Add official repository
+        - name: PLEX | Add Plex apt repo (Ubuntu & Debian with systemd)
+          apt_repository:
+            repo: deb https://downloads.plex.tv/repo/deb/ public main
+            state: present
 
-    - name: PLEX | Add Plex Apt key
-      apt_key:
-        url: https://downloads.plex.tv/plex-keys/PlexSign.key
-        state: present
+        - name: PLEX | Add Plex apt key (Ubuntu & Debian with systemd)
+          apt_key:
+            url: https://downloads.plex.tv/plex-keys/PlexSign.key
+            state: present
+
+      when: ansible_distribution == 'Ubuntu' or plex_init_system.stdout == 'systemd'
+
+    - block:
+      # Add ninthgate repository
+        - name: PLEX | Add ninthgate apt repo (Debian sysVinit)
+          apt_repository:
+            repo: deb http://shell.ninthgate.se/packages/debian wheezy main
+            state: present
+
+        - name: PLEX | Add Plex Apt key (Debian sysVinit)
+          apt_key:
+            url: http://shell.ninthgate.se/packages/shell.ninthgate.se.gpg.key
+            state: present
+
+      when: plex_init_system.stdout == 'systemV'
 
     - name: PLEX | Apt install Plex
       apt:
