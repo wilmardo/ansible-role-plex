@@ -24,28 +24,28 @@
 
   - block:
     # Add official repository
-    - name: PLEX | Add Plex apt repo (Ubuntu & Debian with systemd)
-      apt_repository:
-        repo: deb https://downloads.plex.tv/repo/deb/ public main
-        state: present
-
     - name: PLEX | Add Plex apt key (Ubuntu & Debian with systemd)
       apt_key:
         url: https://downloads.plex.tv/plex-keys/PlexSign.key
+        state: present
+
+    - name: PLEX | Add Plex apt repo (Ubuntu & Debian with systemd)
+      apt_repository:
+        repo: deb https://downloads.plex.tv/repo/deb/ public main
         state: present
 
     when: (ansible_distribution == 'Ubuntu') or (ansible_distribution == 'Debian' and ansible_distribution_major_version|int >= 8)
 
   - block:
     # Add ninthgate repository
-    - name: PLEX | Add ninthgate apt repo (Debian sysVinit)
-      apt_repository:
-        repo: deb http://shell.ninthgate.se/packages/debian wheezy main
-        state: present
-
     - name: PLEX | Add Plex Apt key (Debian sysVinit)
       apt_key:
         url: http://shell.ninthgate.se/packages/shell.ninthgate.se.gpg.key
+        state: present
+
+    - name: PLEX | Add ninthgate apt repo (Debian sysVinit)
+      apt_repository:
+        repo: deb http://shell.ninthgate.se/packages/debian wheezy main
         state: present
 
     when: ansible_distribution == 'Debian' and ansible_distribution_major_version|int <= 7
