@@ -5,6 +5,7 @@ cache:
   directories: [ '$HOME/lxc' ]
   pip: true
 env:
+  - LXC_DISTRO=debian LXC_RELEASE=stretch
   - LXC_DISTRO=debian LXC_RELEASE=jessie
   - LXC_DISTRO=debian LXC_RELEASE=wheezy
   - LXC_DISTRO=ubuntu LXC_RELEASE=xenial
