@@ -2,4 +2,4 @@
 - hosts: localhost
   connection: local
   roles:
-    - { name: ansible-role-travis-lxc }
+    - { name: lae.travis-lxc }
