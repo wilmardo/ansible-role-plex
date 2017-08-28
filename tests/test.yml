@@ -2,4 +2,4 @@
 - hosts: all
   become: yes
   roles:
-    - "{{ lookup('env', 'TRAVIS_REPO_SLUG') | basename }}" #Gets only the repository name
+    - {role: "{{ lookup('env', 'TRAVIS_REPO_SLUG') | basename }}" } #Gets only the repository name
