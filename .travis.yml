@@ -9,6 +9,7 @@ env:
   - LXC_DISTRO=debian LXC_RELEASE=wheezy
   - LXC_DISTRO=ubuntu LXC_RELEASE=xenial
   - LXC_DISTRO=ubuntu LXC_RELEASE=trusty
+  - LXC_DISTRO=ubuntu LXC_RELEASE=precise
   - LXC_DISTRO=centos LXC_RELEASE=7
   - LXC_DISTRO=centos LXC_RELEASE=6
 #  - ANSIBLE_VERSION='ansible>=1.9.0,<2.0.0' #EOL 2016-04-15
@@ -32,7 +33,7 @@ install:
   - printf '[defaults]\nroles_path=../\ncallback_whitelist=profile_tasks' >ansible.cfg
 
 before_script:
-  - if [ ! "$ANSIBLE_VERSION" ]; then ansible-galaxy install lae.travis-lxc; fi
+  - if [ ! "$ANSIBLE_VERSION" ]; then ansible-galaxy install git+https://github.com/wilmardo/ansible-role-travis-lxc.git; fi
   - if [ ! "$ANSIBLE_VERSION" ]; then ansible-playbook -vvv tests/install.yml; fi
 
 script:
