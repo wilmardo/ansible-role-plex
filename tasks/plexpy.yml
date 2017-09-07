@@ -1,8 +1,11 @@
 ---
-- name: PLEX | Install git
+- name: PLEXPY | Install git & ca-certificates
   package:
-    name: git
+    name: "{{ item }}"
     state: present
+  with_items:
+    - git
+    - ca-certificates
 
 - name: PLEXPY | Create user
   group:
