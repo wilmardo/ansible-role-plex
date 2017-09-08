@@ -8,18 +8,25 @@
         gpgkey: https://downloads.plex.tv/plex-keys/PlexSign.key
         gpgcheck: yes
 
-    - name: PLEX | Yum install Plex
+    - name: PLEX | Yum install Plex and python-firewall
       yum:
         name: plexmediaserver
         state: present
         update_cache: yes
 
-    - name: PLEX | Open firewalld port (>= Centos 7)
-      firewalld:
-        port: 32400/tcp
-        permanent: true
-        state: enabled
-      when: ansible_distribution_major_version|int >= 7
+  - block:
+      - name: PLEX | Yum install Plex and python-firewall
+        yum:
+          name: python-firewall
+          state: present
+
+      - name: PLEX | Open firewalld port (>= Centos 7)
+        firewalld:
+          port: 32400/tcp
+          permanent: true
+          state: enabled
+
+    when: ansible_distribution_major_version|int >= 7
 
   when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
 
