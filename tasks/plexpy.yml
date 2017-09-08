@@ -46,7 +46,7 @@
         daemon_reload: yes
       notify: restart plexpy
 
-  when: (ansible_distribution == 'Ubuntu' and ansible_distribution_version >= '16.04') or (ansible_distribution == 'CentOS' and ansible_distribution_major_version == '7')
+  when: (ansible_distribution == 'Ubuntu' and ansible_distribution_version|int >= 16.04) or (ansible_distribution == 'CentOS' and ansible_distribution_major_version|int >= 7)
 
 - block:
     - name: PLEXPY | Move init script for CentOS versions
@@ -92,4 +92,4 @@
         enabled: yes
       notify: restart plexpy
 
-  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version <= '15.10'
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version|int <= 15.10

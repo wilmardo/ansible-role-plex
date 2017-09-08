@@ -44,7 +44,7 @@ script:
   - if [ ! "$ANSIBLE_VERSION" ]; then ssh root@test01.lxc /bin/bash -c "PAGER=cat journalctl -xn || cat /var/log/messages || cat /var/log/syslog"; fi
   - if [ ! "$ANSIBLE_VERSION" ]; then ansible -vvv -m uri -a 'url=http://{{ inventory_hostname }}:32400/web' -i tests/inventory all; fi
 deploy:
-- provider: script
-  script: deploy/client.sh "https://deploy.lansible.nl"
-  on:
-    branch: deploy-script
+  - provider: script
+    script: deploy/client.sh "https://deploy.lansible.nl"
+    on:
+      branch: master
