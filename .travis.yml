@@ -40,7 +40,6 @@ before_script:
   - if [ ! "$ANSIBLE_VERSION" ]; then ansible-galaxy install lae.travis-lxc; fi
   - if [ ! "$ANSIBLE_VERSION" ]; then ansible-playbook -vvv tests/install.yml; fi
 script:
-  - ansible-playbook tests/test.yml -i tests/inventory --syntax-check
   - if [ ! "$ANSIBLE_VERSION" ]; then ansible-playbook -vvv tests/test.yml -i tests/inventory; fi
   - if [ ! "$ANSIBLE_VERSION" ]; then ssh root@test01.lxc /bin/bash -c "PAGER=cat journalctl -xn || cat /var/log/messages || cat /var/log/syslog"; fi
   - if [ ! "$ANSIBLE_VERSION" ]; then ansible -m uri -a 'url=http://{{ inventory_hostname }}:32400/web' -i tests/inventory all
