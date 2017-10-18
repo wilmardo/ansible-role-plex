@@ -1,6 +1,7 @@
 galaxy_info:
   author: wilmardo
-  description: Software dev
+  description: |
+	Role to install Plex Media Server, PlexPy and Plexupdate in one go!
 
   license: BSD
 
