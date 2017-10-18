@@ -1,6 +1,7 @@
 galaxy_info:
   author: wilmardo
-  description: Software dev
+  description: |
+    Role to install Plex Media Server, PlexPy and Plexupdate in one go!
 
   license: BSD
 
@@ -14,15 +15,15 @@ galaxy_info:
 
   - name: Ubuntu
     versions:
-    - precise
-    - trusty
-    - xenial
+      - precise
+      - trusty
+      - xenial
 
   - name: Debian
     versions:
-    - wheezy
-    - jessie
-    - stretch
+      - wheezy
+      - jessie
+      - stretch
 
   galaxy_tags:
     - plex
