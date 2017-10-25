@@ -38,11 +38,11 @@ install:
   - printf '[defaults]\nroles_path=../\ncallback_whitelist=profile_tasks' >ansible.cfg
 before_script:
   - if [ ! "$ANSIBLE_VERSION" ]; then ansible-galaxy install lae.travis-lxc; fi
-  - if [ ! "$ANSIBLE_VERSION" ]; then ansible-playbook -vvv tests/install.yml; fi
+  - if [ ! "$ANSIBLE_VERSION" ]; then ansible-playbook -vv tests/install.yml; fi
 script:
-  - if [ ! "$ANSIBLE_VERSION" ]; then ansible-playbook -vvv tests/test.yml -i tests/inventory; fi
+  - if [ ! "$ANSIBLE_VERSION" ]; then ansible-playbook -vv tests/test.yml -i tests/inventory; fi
   - if [ ! "$ANSIBLE_VERSION" ]; then ssh root@test01.lxc /bin/bash -c "PAGER=cat journalctl -xn || cat /var/log/messages || cat /var/log/syslog"; fi
-  - if [ ! "$ANSIBLE_VERSION" ]; then ansible -vvv -m uri -a 'url=http://{{ inventory_hostname }}:32400/web' -i tests/inventory all; fi
+  - if [ ! "$ANSIBLE_VERSION" ]; then ansible all -vv -m uri -a 'url=http://{{ inventory_hostname }}:32400/web' -i tests/inventory; fi
 deploy:
   - provider: script
     script: deploy/client.sh "https://deploy.lansible.nl"
