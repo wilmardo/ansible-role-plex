@@ -1,7 +1,7 @@
 galaxy_info:
   author: wilmardo
   description: |
-	Role to install Plex Media Server, PlexPy and Plexupdate in one go!
+    Role to install Plex Media Server, PlexPy and Plexupdate in one go!
 
   license: BSD
 
