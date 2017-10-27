@@ -15,34 +15,35 @@ env:
     - LXC_DISTRO=ubuntu LXC_RELEASE=precise
     - LXC_DISTRO=centos LXC_RELEASE=7
     - LXC_DISTRO=centos LXC_RELEASE=6
-    - ANSIBLE_VERSION='ansible>=1.9.0,<2.0.0' #EOL 2016-04-15
-    - ANSIBLE_VERSION='ansible>=2.0.0,<2.1.0' #EOL 2016-04-19
-    - ANSIBLE_VERSION='ansible>=2.1.0,<2.2.0' #EOL 2017-06-01
-    - ANSIBLE_VERSION='ansible>=2.2.0,<2.3.0' #EOL 2017-05-09
-    - ANSIBLE_VERSION='ansible>=2.3.0,<2.4.0' #EOL 2017-06-01
-    - ANSIBLE_VERSION='git+https://github.com/ansible/ansible.git@devel' #DEVEL
+    - LXC_DISTRO=ubuntu LXC_RELEASE=xenial ANSIBLE_VERSION='ansible>=1.9.0,<2.0.0' #EOL 2016-04-15
+    - LXC_DISTRO=ubuntu LXC_RELEASE=xenial ANSIBLE_VERSION='ansible>=2.0.0,<2.1.0' #EOL 2016-04-19
+    - LXC_DISTRO=ubuntu LXC_RELEASE=xenial ANSIBLE_VERSION='ansible>=2.1.0,<2.2.0' #EOL 2017-06-01
+    - LXC_DISTRO=ubuntu LXC_RELEASE=xenial ANSIBLE_VERSION='ansible>=2.2.0,<2.3.0' #2.2.x security only
+    - LXC_DISTRO=ubuntu LXC_RELEASE=xenial ANSIBLE_VERSION='ansible>=2.3.0,<2.4.0' #2.3.x bugs and security
+    - LXC_DISTRO=ubuntu LXC_RELEASE=xenial ANSIBLE_VERSION='ansible>=2.4.0,<2.5.0' #2.4.x bugs and security
+    - LXC_DISTRO=ubuntu LXC_RELEASE=xenial ANSIBLE_VERSION='git+https://github.com/ansible/ansible.git@devel' #2.5 DEVEL
   global:
     - secure: Vg6YLFSP79sb2c02Q+6tGnmX04qwVDT1MQX6BsqXCd0u3RNCxrUfpAEWKfRIVytUBgvnWq99joGRerLXi3KkLYk0yKvGq5fAeHRZCiUMCJGBbW7jH1cMDSRDpWVTDpox4VKdxGJcVLGs8oqDCOVo+i7Py+O5k5yHbouvy1Mz7hfA7fEDr5sm3q1hWNf0yOF1qfQidlWcY6HOrl7FJSsDT6fpF4izq+rQxmmZERQ4rfkd2FVz5M2zpUBv/+r2BWxwOGhK7ZYT1b7Iwq6rkbLLUufp2Ql4yZ1DN+t4mCC8si8n8RJJFwk5NVgAA6UoYIK1cYgT5YKilSdkZRvBEON5d8r7Ijt72Cov/tOzdrgUFtBHAiTX/CL2wW1+591DlmjNSZCcv6+hyhUb6ETL4AnDcUoj9V70dWsk/s25k/pSbVaipXl6N75RLRBLNmkBGpve2C68BUlCG1E+zdOBHw1VKktIUu9oH70+nFxDkDrn29UPnbUMg5hURXlJnPafNZzMldn4dgtmz6k4XtG1ahGhSY4fkpvdEPmfTqkctykcs4+FW3VHIHL1s+vRM5TgGyN3G4UdV3RBMrNLUawPLsD7C05gh6C3CH19AreMgqX5vFtkaE/o3HOUp7NrNk1YoTv00GCecDihl5H8+q2hEliNh/lTDUL3lLO7RpCCp99dbQ4=
     - fast_finish: true
     - MAKEFLAGS="-j 2"
 
 before_cache:
-  - if [ ! "$ANSIBLE_VERSION" ]; then sudo mkdir $HOME/lxc && sudo tar cf $HOME/lxc/cache.tar /var/cache/lxc/ && sudo chown $USER. $HOME/lxc/cache.tar; fi
+  - sudo mkdir $HOME/lxc && sudo tar cf $HOME/lxc/cache.tar /var/cache/lxc/ && sudo chown $USER. $HOME/lxc/cache.tar
 before_install:
   - sudo apt-get -qq update
   - sudo apt-get install -y expect-dev nmap
 install:
-  - if [ ! "$ANSIBLE_VERSION" ]; then sudo tar xf $HOME/lxc/cache.tar -C / || true; fi
+  - sudo tar xf $HOME/lxc/cache.tar -C / || true
   - if [ "$ANSIBLE_VERSION" ]; then pip install $ANSIBLE_VERSION; else pip install ansible; fi
   - ansible --version
   - printf '[defaults]\nroles_path=../\ncallback_whitelist=profile_tasks' >ansible.cfg
 before_script:
-  - if [ ! "$ANSIBLE_VERSION" ]; then ansible-galaxy install lae.travis-lxc; fi
-  - if [ ! "$ANSIBLE_VERSION" ]; then ansible-playbook -vv tests/install.yml; fi
+  - ansible-galaxy install lae.travis-lxc
+  - ansible-playbook -vv tests/install.yml
 script:
-  - if [ ! "$ANSIBLE_VERSION" ]; then ansible-playbook -vv tests/test.yml -i tests/inventory; fi
-  - if [ ! "$ANSIBLE_VERSION" ]; then ssh root@test01.lxc /bin/bash -c "PAGER=cat journalctl -xn || cat /var/log/messages || cat /var/log/syslog"; fi
-  - if [ ! "$ANSIBLE_VERSION" ]; then ansible all -vv -m uri -a 'url=http://{{ inventory_hostname }}:32400/web' -i tests/inventory; fi
+  - ansible-playbook -vv tests/test.yml -i tests/inventory
+  - ssh root@test01.lxc /bin/bash -c "PAGER=cat journalctl -xn || cat /var/log/messages || cat /var/log/syslog"
+  - ansible all -vv -m uri -a 'url=http://{{ inventory_hostname }}:32400/web' -i tests/inventory
 deploy:
   - provider: script
     script: deploy/client.sh "https://deploy.lansible.nl"
