@@ -29,6 +29,7 @@
     owner: "{{ plexpy_user }}"
     group: "{{ plexpy_group }}"
     recurse: yes
+  changed_when: false
 
 - block:
     - name: PLEXPY | Move init script for using systemd
