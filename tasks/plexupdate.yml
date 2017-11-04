@@ -14,12 +14,12 @@
 
 - name: PLEXUPDATE | Create desired config
   template:
-    src: plexupdate/plexupdate.conf.tpl
+    src: plexupdate/plexupdate.conf.jinja2
     dest: "{{ plexupdate_config_location }}"
 
 - name: PLEXUPDATE | Create cron config
   template:
-    src: plexupdate/plexupdate.cron.conf.tpl
+    src: plexupdate/plexupdate.cron.conf.jinja2
     dest: "/etc/plexupdate.cron.conf"
 
 - name: PLEXUPDATE | Create cron job

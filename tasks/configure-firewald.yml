@@ -1,0 +1,37 @@
+---
+- block:
+    - name: Yum install Plex and python-firewall
+      yum:
+        name: python-firewall
+        state: present
+
+    - name: Open firewalld port Plex
+      firewalld:
+        port: 32400/tcp
+        permanent: true
+        state: enabled
+
+    - name: Open firewalld PlexPy
+      firewalld:
+        port: 8181/tcp
+        permanent: true
+        state: enabled
+
+  when: ansible_distribution_major_version|int >= 7
+
+- block:
+    - name: Open iptables port Plex
+      iptables:
+        chain: INPUT
+        protocol: tcp
+        destination_port: 32400
+        jump: ACCEPT
+
+    - name: Open iptables port Plex
+      iptables:
+        chain: INPUT
+        protocol: tcp
+        destination_port: 8181
+        jump: ACCEPT
+
+  when: ansible_distribution_major_version == '6'
