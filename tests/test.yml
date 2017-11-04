@@ -9,9 +9,9 @@
       uri:
         url: "http://{{ inventory_hostname }}:32400/web"
 
-    - name: Test PlexPy webinterface
-      uri:
-        url: "http://{{ inventory_hostname }}:8181/home"
+#    - name: Test PlexPy webinterface
+#      uri:
+#        url: "http://{{ inventory_hostname }}:8181/home"
 
-#    - name: Test plexupdate webinterface
-#      shell: "{{ plexupdate_install_location }}/plexupdate.sh"
+    - name: Test plexupdate webinterface
+      shell: "{{ plexupdate_install_location }}/plexupdate.sh"
