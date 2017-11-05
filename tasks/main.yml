@@ -11,5 +11,5 @@
 - include: postfix.yml
   when: plexupdate_notify
 
-- include: configure-firewalld.yml
-  when: ansible_os_family == "RedHat"
+#- include: configure-firewalld.yml
+#  when: ansible_os_family == "RedHat"
