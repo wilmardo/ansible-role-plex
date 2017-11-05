@@ -14,5 +14,5 @@
 #        url: "http://{{ inventory_hostname }}:8181/home"
 
     - name: Test with plexupdate if latest version is installed
-      shell: "{{ plexupdate_install_location }}/plexupdate.sh | grep -q 'already installed' && echo 'Latest Plex installed' || echo 'Latest Plex not installed'"
+      shell: "{{ plexupdate_install_location }}/plexupdate.sh | grep -q 'already installed' && (echo 'Latest Plex installed'; exit 0) || (echo 'Latest Plex not installed'; exit 1)"
       changed_when: false

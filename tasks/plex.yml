@@ -63,3 +63,9 @@
     name: plexmediaserver
     enabled: yes
   notify: restart plex
+
+- name: Test
+  service:
+    name: plexmediaserver
+    state: started
+  when: ansible_os_family == "RedHat"
