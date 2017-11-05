@@ -13,6 +13,7 @@
         name: plexmediaserver
         state: present
         update_cache: yes
+      notify: restart plex
 
   when: ansible_os_family == "RedHat"
 
@@ -55,6 +56,7 @@
         name: plexmediaserver
         state: present
         update_cache: yes
+      notify: restart plex
 
   when: ansible_os_family == "Debian"
 
@@ -63,9 +65,3 @@
     name: plexmediaserver
     enabled: yes
   notify: restart plex
-
-- name: Test
-  service:
-    name: plexmediaserver
-    state: started
-  when: ansible_os_family == "RedHat"

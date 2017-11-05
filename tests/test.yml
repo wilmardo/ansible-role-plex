@@ -9,10 +9,10 @@
       uri:
         url: "http://{{ inventory_hostname }}:32400/web"
 
-#    - name: Test PlexPy webinterface
-#      uri:
-#        url: "http://{{ inventory_hostname }}:8181/home"
+    - name: Test PlexPy webinterface
+      uri:
+        url: "http://{{ inventory_hostname }}:8181/home"
 
     - name: Test with plexupdate if latest version is installed
-      shell: "{{ plexupdate_install_location }}/plexupdate.sh | grep -q 'already installed' && (echo 'Latest Plex installed'; exit 0) || (echo 'Latest Plex not installed'; exit 1)"
+      shell: "{{ plexupdate_install_location }}/plexupdate.sh | grep -q 'already installed' && (echo 'Latest Plex installed'; exit 0) || (cat; exit 1)"
       changed_when: false
