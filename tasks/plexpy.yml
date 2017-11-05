@@ -63,7 +63,7 @@
 
     - name: Set defaults in file
       template:
-        src: plexpy/CentOS-plexpy.jinja2
+        src: plexpy/centos-plexpy.jinja2
         dest: /etc/default/plexpy
 
     - name: Autostart Plexpy and restart service
