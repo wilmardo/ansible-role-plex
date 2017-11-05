@@ -15,3 +15,4 @@
 
     - name: Test with plexupdate if latest version is installed
       shell: "{{ plexupdate_install_location }}/plexupdate.sh | grep -q 'already installed' && echo 'Latest Plex installed' || echo 'Latest Plex not installed'"
+      changed_when: false
