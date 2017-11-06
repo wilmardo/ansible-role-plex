@@ -34,3 +34,4 @@
   shell: "{{ plexupdate_install_location }}/plexupdate.sh -s"
   changed_when: "'already installed' not in plexupdate_output.stdout"
   register: plexupdate_output
+  notify: restart plex
