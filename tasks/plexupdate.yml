@@ -32,5 +32,5 @@
 
 - name: Install latest plex with plexupdate
   shell: "{{ plexupdate_install_location }}/plexupdate.sh -s"
-  changed_when: 'already installed' not in plexupdate_output.stdout
+  changed_when: "'already installed' not in plexupdate_output.stdout"
   register: plexupdate_output
