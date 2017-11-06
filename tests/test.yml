@@ -28,3 +28,4 @@
       changed_when: false
       when: plexupdate_install
       register: plexupdate_output
+      notify: restart plex
