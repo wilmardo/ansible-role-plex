@@ -13,6 +13,10 @@
       uri:
         url: "http://{{ inventory_hostname }}:32400/web"
 
+    - name: Wait for Plexpy to succesfully restart
+      wait_for:
+        port: 8181
+
     - name: Test PlexPy webinterface
       uri:
         url: "http://{{ inventory_hostname }}:8181/home"
@@ -20,7 +24,7 @@
 
     - name: Test with plexupdate if latest version is installed
       shell: "{{ plexupdate_install_location }}/plexupdate.sh"
-      failed_when: "'already installed' not in plexupdate_output.stdout"
+      failed_when: 'already installed' not in plexupdate_output.stdout
       changed_when: false
       when: plexupdate_install
       register: plexupdate_output
