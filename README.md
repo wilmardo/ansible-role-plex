@@ -1,55 +1,78 @@
-Plex [![Build Status](https://travis-ci.org/wilmardo/ansible-plex.svg?branch=master)](https://travis-ci.org/wilmardo/ansible-plex)
-=========
+# wilmardo.plex
+
+[![Build Status](https://travis-ci.org/wilmardo/ansible-role-plex.svg?branch=master)](https://travis-ci.org/wilmardo/ansible-role-plex)
+[![Galaxy](https://img.shields.io/badge/galaxy-wilmardo.plex-blue.svg)](https://galaxy.ansible.com/wilmardo/plex/)
 
 The ultimate Plex role for Ansible, install [Plex](https://www.plex.tv/), [PlexPy](https://github.com/JonnyWong16/plexpy) and [Plexupdate](https://github.com/mrworf/plexupdate) in a whimp.
 
-Role Variables
---------------
-There are several role variables, they can be set in the hosts_vars/group_vars:
+## Requirements
 
-### Variables for PlexPy
-| Variable name           | Default value         | Description         |
-| ----------------------- | --------------------- | ------------------- |
-| plexpy_install          | yes                   | To install PlexPy
-| plexpy_user             | plexpy                | The user PlexyPy runs as
-| plexpy_group            | plexpy               | The group PlexPy runs as
-| plexpy_install_location | /opt/plexpy/          | PlexPy install location
-| plexpy_config_location: | /etc/plexpyconfig.ini | PlexPy config file (recommended is to put it somewhere in /etc)
-| plexpy_data_location:   | /opt/plexpy/data      | PlexPy datadir (recommended is to NOT put it in your PlexPy exec dir)
+None but when plexupdate_notify is enabled a working crontab email configuration is required to be able to receive notifications.
 
-### Variables for plexupdate
-| Variable name                     | Default value              | Description         |
-| --------------------------------- | -------------------------- | ------------------- |
-| plexupdate_install                | no                         | To install Plexupdate. Enable when not Ubuntu or Centos/Fedora 
-| plexupdate_install_location       | /opt/plexupdate/           | Plexupdate install location
-| plexupdate_config_location        | /etc/plexupdate.conf       | Plexupdate config location
-| plexupdate_cronwrapper:           | /etc/cron.daily/plexupdate | Set the cron wrapper for Plexupdate
-| plexupdate_autoinstall            | yes                        | Enables autoupdates for Plex, will defer the update when Plex is in use
-| plexupdate_autoupdate             | yes                        | Enables autoupdater for Plexupdate
-| plexupdate_public                 | yes                        | Select the update channel, set no when using a Plex Pass
+## Role Variables
 
+### Default usage
 
-Example Playbook
-----------------
+As default the role installs Plex, PlexPy and Plexupdate, if you want to change this, look at 'Advanced usage' for the available variables.
 
-The following playbook is all you need to get started. All the above variables have a default value which is fine for your every day setup.
+### Advanced usage
 
-    - hosts: plexservers
-      roles:
-         - { role: wilmardo.plex }
-         
- After running the playbook Plex and PlexPy need to be setup:
-  - Plex can be found at http://ipadress:32400/web
-  - PlexPy can be foudn at http://ipaddress:8181
+For more advanced usage the following variables are available:
+```yaml
+# If PlexPy will get installed
+plexpy_install: yes
+# User to run plexpy as
+plexpy_user: "plexpy"
+# Group to run plexpy as
+plexpy_group: "plexpy"
+# PlexPy install location
+plexpy_install_location: "/opt/plexpy/"
+# PlexPy configuration location (recommended is to put it somewhere in /etc)
+plexpy_config_location: "/etc/plexpyconfig.ini"
+# PlexPy data location (recommended is to NOT put it in your PlexPy exec dir)
+plexpy_data_location: "/opt/plexpy/data"
 
-License
--------
+# If plexupdate will get installed
+plexupdate_install: yes
+# Plexupdate install location
+plexupdate_install_location: "/opt/plexupdate/"
+# Plexupdate config location
+plexupdate_config_location: "/etc/plexupdate.conf"
+# Plexupdate cronwrapper location, change cron.daily to interval (cron.hourly, cron.daily, cron.weekly, cron.monthly)
+plexupdate_cronwrapper: "/etc/cron.daily/plexupdate"
 
-BSD
+# Cron options for plexupdate
+# If Plexupdate will automatically install newly downloaded version
+plexupdate_autoinstall: yes
+# If Plexupdate will delete the downloaded package after installation to conserve disk space
+plexupdate_autoupdate: yes
+# If Plexupdate will download the public release (set to no to download PlexPass releases)
+plexupdate_public: yes
+# If Plexupdate will notify by mail after cron error
+plexupdate_notify: no
+```
 
-Author Information
-------------------
+## Dependencies
 
-Wilmar den Ouden
+None
 
-https://wilmardenouden.nl
+## Example Playbook
+
+Install Plex, PlexPy and plexupdate
+```yaml
+- hosts: plexservers
+  roles:
+    - { role: wilmardo.plex }
+```
+
+After running the playbook Plex and PlexPy need to be setup:
+- Plex can be found at http://ipadress:32400/web
+- PlexPy can be foudn at http://ipaddress:8181
+
+## License
+
+BSD-3-Clause-Clear
+
+## Author Information
+
+This role was created in 2017 by [Wilmar den Ouden](https://wilmardenouden.nl).

@@ -1,19 +1,32 @@
 ---
-# defaults for plexpy
+# If PlexPy will get installed
 plexpy_install: yes
+# User to run plexpy as
 plexpy_user: "plexpy"
+# Group to run plexpy as
 plexpy_group: "plexpy"
+# PlexPy install location
 plexpy_install_location: "/opt/plexpy/"
+# PlexPy configuration location (recommended is to put it somewhere in /etc)
 plexpy_config_location: "/etc/plexpyconfig.ini"
+# PlexPy data location (recommended is to NOT put it in your PlexPy exec dir)
 plexpy_data_location: "/opt/plexpy/data"
 
-# defaults for plexupdate
+# If plexupdate will get installed
 plexupdate_install: yes
+# Plexupdate install location
 plexupdate_install_location: "/opt/plexupdate/"
+# Plexupdate config location
 plexupdate_config_location: "/etc/plexupdate.conf"
+# Plexupdate cronwrapper location, change cron.daily to interval (cron.hourly, cron.daily, cron.weekly, cron.monthly)
 plexupdate_cronwrapper: "/etc/cron.daily/plexupdate"
 
+# Cron options for plexupdate
+# If Plexupdate will automatically install newly downloaded version
 plexupdate_autoinstall: yes
+# If Plexupdate will delete the downloaded package after installation to conserve disk space
 plexupdate_autoupdate: yes
+# If Plexupdate will download the public release (set to no to download PlexPass releases)
 plexupdate_public: yes
+# If Plexupdate will notify by mail after cron error
 plexupdate_notify: no

@@ -31,7 +31,7 @@
   when: plexupdate_autoinstall or plexupdate_autoupdate
 
 - name: Install latest plex with plexupdate
-  shell: "{{ plexupdate_install_location }}/plexupdate.sh"
+  shell: "printfs 'Y\n' | {{ plexupdate_install_location }}/plexupdate.sh --config {{ plexupdate_config_location }}"
   changed_when: "'already installed' not in plexupdate_output.stdout"
   register: plexupdate_output
   notify: restart plex
