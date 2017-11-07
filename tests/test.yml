@@ -31,4 +31,5 @@
 
     - name: Grab system Logs
       shell: "PAGER=cat journalctl -xn || cat /var/log/messages || cat /var/log/syslog"
+      changed_when: false
       ignore_errors: yes
