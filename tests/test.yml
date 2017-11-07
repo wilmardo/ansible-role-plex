@@ -30,5 +30,5 @@
       register: plexupdate_output
 
     - name: Grab system Logs
-        shell: "PAGER=cat journalctl -xn || cat /var/log/messages || cat /var/log/syslog"
+      shell: "PAGER=cat journalctl -xn || cat /var/log/messages || cat /var/log/syslog"
       ignore_errors: yes
