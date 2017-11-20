@@ -34,11 +34,11 @@
 - block:
     - name: Move init script for using systemd
       template:
-        src: plexpy/init.systemd.jinja2
+        src: plexpy/init-systemd.jinja2
         dest: /lib/systemd/system/plexpy.service
         owner: root
         group: root
-        mode: 0644
+        mode: 0775
 
     - name: Autostart Plexpy and restart service
       systemd:
@@ -52,19 +52,24 @@
         (ansible_distribution == 'Debian' and ansible_distribution_major_version|int >= 8)
 
 - block:
+    - name: Setup Software Collections
+      yum:
+        name: centos-release-scl
+        state: present
+
+    - name: Setup Python 2.7
+      yum:
+        name: python27
+        state: latest
+
     - name: Move init script Centos 6
-      file:
-        src: "{{ plexpy_install_location }}/init-scripts/init.fedora.CentOS.service"
+      template:
+        src: plexpy/init-centos-fedora.jinja2
         dest: /etc/init.d/plexpy
         owner: root
         group: root
-        mode: 0744
-        state: link
-
-    - name: Set defaults in file
-      template:
-        src: plexpy/centos-plexpy.jinja2
-        dest: /etc/default/plexpy
+        mode: 0775
+      notify: restart plexpy
 
     - name: Autostart Plexpy and restart service
       service:
@@ -72,7 +77,7 @@
         enabled: yes
       notify: restart plexpy
 
-  when: ansible_distribution == 'CentOS' and ansible_distribution_version == '6'
+  when: ansible_distribution == 'CentOS' and ansible_distribution_major_version == '6'
 
 - block:
     - name: Move init script for older ubuntu versions
@@ -81,12 +86,12 @@
         dest: /etc/init.d/plexpy
         owner: root
         group: root
-        mode: 0744
+        mode: 0775
         state: link
 
     - name: Set defaults in file
       template:
-        src: plexpy/ubuntu-plexpy.jinja2
+        src: plexpy/ubuntu-plexpy-defaults.jinja2
         dest: /etc/default/plexpy
 
     - name: Autostart Plexpy and restart service
