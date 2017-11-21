@@ -2,4 +2,34 @@
 - hosts: all
   become: yes
   roles:
-    - ansible-role-plex
+    - {   role: "{{ lookup('env', 'TRAVIS_REPO_SLUG') | basename }}" } #Gets only the repository name
+
+  post_tasks:
+    - name: Wait for Plex to succesfully restart
+      wait_for:
+        port: 32400
+
+    - name: Test Plex webinterface
+      uri:
+        url: "http://{{ inventory_hostname }}:32400/web"
+
+    - name: Wait for Plexpy to succesfully restart
+      wait_for:
+        port: 8181
+
+    - name: Test PlexPy webinterface
+      uri:
+        url: "http://{{ inventory_hostname }}:8181/home"
+      when: plexpy_install
+
+    - name: Test with plexupdate if latest version is installed
+      shell: "{{ plexupdate_install_location }}/plexupdate.sh"
+      failed_when: "'already installed' not in plexupdate_output.stdout"
+      changed_when: false
+      when: plexupdate_install
+      register: plexupdate_output
+
+    - name: Grab system Logs
+      shell: "PAGER=cat journalctl -xn || cat /var/log/messages || cat /var/log/syslog"
+      changed_when: false
+      ignore_errors: yes

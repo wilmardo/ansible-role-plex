@@ -3,7 +3,7 @@ galaxy_info:
   description: |
     Role to install Plex Media Server, PlexPy and Plexupdate in one go!
 
-  license: BSD
+  license: BSD-3-Clause-Clear
 
   min_ansible_version: 2.2
 
@@ -15,15 +15,14 @@ galaxy_info:
 
   - name: Ubuntu
     versions:
-      - precise
-      - trusty
-      - xenial
+    - precise
+    - trusty
+    - xenial
 
   - name: Debian
     versions:
-      - wheezy
-      - jessie
-      - stretch
+    - jessie
+    - stretch
 
   galaxy_tags:
     - plex

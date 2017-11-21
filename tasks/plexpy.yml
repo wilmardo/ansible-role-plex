@@ -1,92 +1,109 @@
 ---
-- name: PLEX | Install git
+- name: Install git & ca-certificates
   package:
-    name: git
+    name: "{{ item }}"
     state: present
+  with_items:
+    - git
+    - ca-certificates
 
-- name: PLEXPY | Create user
+- name: Install which untill PR is accepted
+  yum:
+    name: which
+    state: present
+  when: ansible_os_family == "RedHat"
+
+- name: Create user
   group:
     name: "{{ plexpy_group }}"
     state: present
 
-- name: PLEXPY | Create user
+- name: Create user
   user:
     name: "{{ plexpy_user }}"
     group: "{{ plexpy_group }}"
     createhome: no
 
-- name: PLEXPY | Clone Plexpy repo
+- name: Clone Plexpy repo
   git:
     repo: https://github.com/JonnyWong16/plexpy
     dest: "{{ plexpy_install_location }}"
 
-- name: PLEXPY | Set permissions
+- name: Set permissions
   file:
     path: "{{ plexpy_install_location }}"
     owner: "{{ plexpy_user }}"
     group: "{{ plexpy_group }}"
     recurse: yes
+  changed_when: false
 
 - block:
-    - name: PLEXPY | Move init script for using systemd
+    - name: Move init script for using systemd
       template:
-        src: plexpy/init.systemd.jinja2
+        src: plexpy/init-systemd.jinja2
         dest: /lib/systemd/system/plexpy.service
         owner: root
         group: root
-        mode: 0644
+        mode: 0775
 
-    - name: PLEXPY | Autostart Plexpy and restart service
+    - name: Autostart Plexpy and restart service
       systemd:
         name: plexpy
         enabled: yes
         daemon_reload: yes
       notify: restart plexpy
 
-  when: (ansible_distribution == 'Ubuntu' and ansible_distribution_version >= '16.04') or (ansible_distribution == 'CentOS' and ansible_distribution_major_version == '7')
+  when: (ansible_distribution == 'CentOS' and ansible_distribution_major_version == "7") or
+        (ansible_distribution == 'Ubuntu' and ansible_distribution_version|int >= 15.04) or
+        (ansible_distribution == 'Debian' and ansible_distribution_major_version|int >= 8)
 
 - block:
-    - name: PLEXPY | Move init script for CentOS versions
-      file:
-        src: "{{ plexpy_install_location }}/init-scripts/init.fedora.CentOS.service"
+    - name: Setup Software Collections
+      yum:
+        name: centos-release-scl
+        state: present
+
+    - name: Setup Python 2.7
+      yum:
+        name: python27
+        state: latest
+
+    - name: Move init script Centos 6
+      template:
+        src: plexpy/init-centos-fedora.jinja2
         dest: /etc/init.d/plexpy
         owner: root
         group: root
-        mode: 0744
-        state: link
+        mode: 0775
+      notify: restart plexpy
 
-    - name: PLEXPY | Set defaults in file
-      template:
-        src: plexpy/CentOS-plexpy.jinja2
-        dest: /etc/default/plexpy
-
-    - name: PLEXPY | Autostart Plexpy and restart service
+    - name: Autostart Plexpy and restart service
       service:
         name: plexpy
         enabled: yes
       notify: restart plexpy
 
-  when: ansible_distribution == 'CentOS' and ansible_distribution_version == '6'
+  when: ansible_distribution == 'CentOS' and ansible_distribution_major_version == '6'
 
 - block:
-    - name: PLEXPY | Move init script for older ubuntu versions
+    - name: Move init script for older ubuntu versions
       file:
         src: "{{ plexpy_install_location }}/init-scripts/init.ubuntu"
         dest: /etc/init.d/plexpy
         owner: root
         group: root
-        mode: 0744
+        mode: 0775
         state: link
 
-    - name: PLEXPY | Set defaults in file
+    - name: Set defaults in file
       template:
-        src: plexpy/ubuntu-plexpy.jinja2
+        src: plexpy/ubuntu-plexpy-defaults.jinja2
         dest: /etc/default/plexpy
 
-    - name: PLEXPY | Autostart Plexpy and restart service
+    - name: Autostart Plexpy and restart service
       service:
         name: plexpy
         enabled: yes
       notify: restart plexpy
 
-  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version <= '15.10'
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version|int <= 15.10
