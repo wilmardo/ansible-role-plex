@@ -1,12 +1,17 @@
 ---
-- name: Install git & ca-certificates (and which until PR is accepted)
+- name: Install git & ca-certificates
   package:
     name: "{{ item }}"
     state: present
   with_items:
     - git
     - ca-certificates
-    - which
+
+- name: Install which untill PR is accepted
+  yum:
+    name: which
+    state: present
+  when: ansible_os_family == "RedHat"
 
 - name: Create user
   group:
