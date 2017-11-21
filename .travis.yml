@@ -21,7 +21,6 @@ env:
     - LXC_DISTRO=ubuntu LXC_RELEASE=xenial ANSIBLE_VERSION='ansible>=2.3.0,<2.4.0' #2.3.x bugs and security
     - LXC_DISTRO=ubuntu LXC_RELEASE=xenial ANSIBLE_VERSION='ansible>=2.4.0,<2.5.0' #2.4.x bugs and security
     - LXC_DISTRO=ubuntu LXC_RELEASE=xenial ANSIBLE_VERSION='git+https://github.com/ansible/ansible.git@devel' #2.5 DEVEL
-
 matrix:
   allow_failures:
     - env: LXC_DISTRO=ubuntu LXC_RELEASE=xenial ANSIBLE_VERSION='git+https://github.com/ansible/ansible.git@devel' #2.5 DEVEL

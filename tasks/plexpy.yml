@@ -1,11 +1,12 @@
 ---
-- name: Install git & ca-certificates
+- name: Install git & ca-certificates (and which until PR is accepted)
   package:
     name: "{{ item }}"
     state: present
   with_items:
     - git
     - ca-certificates
+    - which
 
 - name: Create user
   group:
