@@ -54,7 +54,7 @@ plexupdate_notify: no
 
 ## Dependencies
 
-None
+None but for PlexPy on Centos 6, Python 2.7 out of the [Software Colletions](https://www.softwarecollections.org/en/scls/rhscl/python27/) is installed
 
 ## Example Playbook
 
