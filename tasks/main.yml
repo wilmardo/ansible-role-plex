@@ -1,4 +1,8 @@
 ---
+- name: Print python version
+  debug:
+    var: ansible_python
+
 # tasks file for plex
 - include: plex.yml
 
@@ -7,6 +11,3 @@
 
 - include: plexupdate.yml
   when: plexupdate_install
-
-#- include: configure-firewalld.yml
-#  when: ansible_os_family == "RedHat"
