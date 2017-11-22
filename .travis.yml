@@ -21,9 +21,11 @@ env:
     - LXC_DISTRO=ubuntu LXC_RELEASE=xenial ANSIBLE_VERSION='ansible>=2.3.0,<2.4.0' #2.3.x bugs and security
     - LXC_DISTRO=ubuntu LXC_RELEASE=xenial ANSIBLE_VERSION='ansible>=2.4.0,<2.5.0' #2.4.x bugs and security
     - LXC_DISTRO=ubuntu LXC_RELEASE=xenial ANSIBLE_VERSION='git+https://github.com/ansible/ansible.git@devel' #2.5 DEVEL
+    - LXC_DISTRO=ubuntu LXC_RELEASE=xenial ANSIBLE_PYTHON_INTERPRETER=/usr/bin/python3' #Python3
 matrix:
   allow_failures:
     - env: LXC_DISTRO=ubuntu LXC_RELEASE=xenial ANSIBLE_VERSION='git+https://github.com/ansible/ansible.git@devel' #2.5 DEVEL
+    - env: LXC_DISTRO=ubuntu LXC_RELEASE=xenial ANSIBLE_PYTHON_INTERPRETER=/usr/bin/python3' #Python3
 
 before_cache:
   - sudo mkdir $HOME/lxc && sudo tar cf $HOME/lxc/cache.tar /var/cache/lxc/ && sudo chown $USER. $HOME/lxc/cache.tar
@@ -32,15 +34,15 @@ before_install:
   - sudo apt-get install -y expect-dev
 install:
   - sudo tar xf $HOME/lxc/cache.tar -C / || true
-  - if [ "$ANSIBLE_VERSION" ]; then pip install $ANSIBLE_VERSION; else pip install ansible; fi
+  - pip install ${ANSIBLE_VERSION-ansible};
   - ansible --version
   - printf '[defaults]\nroles_path=../\ncallback_whitelist=profile_tasks' >ansible.cfg
 before_script:
   - ansible-galaxy install lae.travis-lxc
   - ansible-playbook -vv tests/install.yml -i 'localhost,'
 script:
-  - ansible-playbook tests/test.yml -i tests/inventory --syntax-check
-  - ansible-playbook -vv tests/test.yml -i tests/inventory
-  - unbuffer ansible-playbook tests/test.yml -i tests/inventory >/tmp/idempotency.log 2>&1
+  - ansible-playbook tests/test.yml -i tests/inventory --syntax-check -e "ansible_python_interpreter=${ANSIBLE_PYTHON_INTERPRETER-/usr/bin/python}"
+  - ansible-playbook -vv tests/test.yml -i tests/inventory -e "ansible_python_interpreter=${ANSIBLE_PYTHON_INTERPRETER-/usr/bin/python}"
+  - unbuffer ansible-playbook tests/test.yml -i tests/inventory -e "ansible_python_interpreter=${ANSIBLE_PYTHON_INTERPRETER-/usr/bin/python}" >/tmp/idempotency.log 2>&1
   - 'grep -A1 "PLAY RECAP" /tmp/idempotency.log | grep -qP "changed=0.*failed=0" &&
     (echo "Idempotence PASS"; exit 0) || (echo "Idempotence FAIL"; cat /tmp/idempotency.log; exit 1)'

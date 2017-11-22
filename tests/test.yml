@@ -2,7 +2,7 @@
 - hosts: all
   become: yes
   roles:
-    - {   role: "{{ lookup('env', 'TRAVIS_REPO_SLUG') | basename }}" } #Gets only the repository name
+    - { role: "{{ lookup('env', 'TRAVIS_REPO_SLUG') | basename }}" } #Gets only the repository name
 
   post_tasks:
     - name: Wait for Plex to succesfully restart
