@@ -1,8 +1,4 @@
 ---
-- name: Print python version
-  debug:
-    var: ansible_python
-
 # tasks file for plex
 - include: plex.yml
 
