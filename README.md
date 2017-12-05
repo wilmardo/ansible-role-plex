@@ -13,7 +13,7 @@ None but when plexupdate_notify is enabled a working crontab email configuration
 
 ### Default usage
 
-As default the role installs Plex, PlexPy and Plexupdate, if you want to change this, look at 'Advanced usage' for the available variables.
+As default the role installs Plex, PlexPy and Plexupdate, if you want to change this, look at [Advanced usage](#advanced-usage) section for the available variables.
 
 ### Advanced usage
 
@@ -67,7 +67,7 @@ Install Plex, PlexPy and plexupdate
 
 After running the playbook Plex and PlexPy need to be setup:
 - Plex can be found at http://ipadress:32400/web
-- PlexPy can be foudn at http://ipaddress:8181
+- PlexPy can be found at http://ipaddress:8181
 
 ## License
 
