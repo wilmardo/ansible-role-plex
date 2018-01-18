@@ -1,4 +1,5 @@
 ---
+- setup:
 - block:
     - name: Add Plex Yum repo
       yum_repository:
