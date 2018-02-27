@@ -20,36 +20,40 @@ As default the role installs Plex, PlexPy and Plexupdate, if you want to change 
 For more advanced usage the following variables are available:
 ```yaml
 # If PlexPy will get installed
-plexpy_install: yes
+plexpy_install: true
+# PlexPy version to install (passed as version to git module, see Github for latest)
+plexpy_version: v2.0.20-beta
 # User to run plexpy as
-plexpy_user: "plexpy"
+plexpy_user: plexpy
 # Group to run plexpy as
-plexpy_group: "plexpy"
+plexpy_group: plexpy
 # PlexPy install location
-plexpy_install_location: "/opt/plexpy/"
+plexpy_install_location: /opt/plexpy/
 # PlexPy configuration location (recommended is to put it somewhere in /etc)
-plexpy_config_location: "/etc/plexpyconfig.ini"
+plexpy_config_location: /etc/plexpyconfig.ini
 # PlexPy data location (recommended is to NOT put it in your PlexPy exec dir)
-plexpy_data_location: "/opt/plexpy/data"
+plexpy_data_location: /opt/plexpy/data
 
 # If plexupdate will get installed
-plexupdate_install: yes
+plexupdate_install: true
+# plexupdate version to install (passed as version to git module, see Github for latest)
+plexupdate_version: master
 # Plexupdate install location
-plexupdate_install_location: "/opt/plexupdate/"
+plexupdate_install_location: /opt/plexupdate/
 # Plexupdate config location
-plexupdate_config_location: "/etc/plexupdate.conf"
+plexupdate_config_location: /etc/plexupdate.conf
 # Plexupdate cronwrapper location, change cron.daily to interval (cron.hourly, cron.daily, cron.weekly, cron.monthly)
-plexupdate_cronwrapper: "/etc/cron.daily/plexupdate"
+plexupdate_cronwrapper: /etc/cron.daily/plexupdate
 
 # Cron options for plexupdate
 # If Plexupdate will automatically install newly downloaded version
-plexupdate_autoinstall: yes
+plexupdate_autoinstall: true
 # If Plexupdate will delete the downloaded package after installation to conserve disk space
-plexupdate_autoupdate: yes
+plexupdate_autoupdate: true
 # If Plexupdate will download the public release (set to no to download PlexPass releases)
-plexupdate_public: yes
+plexupdate_public: true
 # If Plexupdate will notify by mail after cron error
-plexupdate_notify: no
+plexupdate_notify: false
 ```
 
 ## Dependencies

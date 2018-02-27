@@ -1,9 +1,10 @@
+---
 language: python
 sudo: required
 dist: trusty
 cache:
   directories:
-  - "$HOME/lxc"
+    - "$HOME/lxc"
   pip: true
 env:
   global:
@@ -19,10 +20,10 @@ env:
     - LXC_DISTRO=ubuntu LXC_RELEASE=precise
     - LXC_DISTRO=centos LXC_RELEASE=7
     - LXC_DISTRO=centos LXC_RELEASE=6
-    - LXC_DISTRO=ubuntu LXC_RELEASE=xenial ANSIBLE_VERSION='ansible>=2.2.0,<2.3.0' #2.2.x security only
-    - LXC_DISTRO=ubuntu LXC_RELEASE=xenial ANSIBLE_VERSION='ansible>=2.3.0,<2.4.0' #2.3.x bugs and security
-    - LXC_DISTRO=ubuntu LXC_RELEASE=xenial ANSIBLE_VERSION='ansible>=2.4.0,<2.5.0' #2.4.x bugs and security
-    - LXC_DISTRO=ubuntu LXC_RELEASE=xenial ANSIBLE_VERSION='git+https://github.com/ansible/ansible.git@devel' #2.5 DEVEL
+    - LXC_DISTRO=ubuntu LXC_RELEASE=xenial ANSIBLE_VERSION='ansible>=2.2.0,<2.3.0'  # 2.2.x security only
+    - LXC_DISTRO=ubuntu LXC_RELEASE=xenial ANSIBLE_VERSION='ansible>=2.3.0,<2.4.0'  # 2.3.x bugs and security
+    - LXC_DISTRO=ubuntu LXC_RELEASE=xenial ANSIBLE_VERSION='ansible>=2.4.0,<2.5.0'  # 2.4.x bugs and security
+    - LXC_DISTRO=ubuntu LXC_RELEASE=xenial ANSIBLE_VERSION='git+https://github.com/ansible/ansible.git@devel'  # 2.5 DEVEL
 
 before_cache:
   - sudo mkdir $HOME/lxc && sudo tar cf $HOME/lxc/cache.tar /var/cache/lxc/ && sudo chown $USER. $HOME/lxc/cache.tar

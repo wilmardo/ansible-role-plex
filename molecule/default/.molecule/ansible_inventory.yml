@@ -1,0 +1,10 @@
+# Molecule managed
+
+---
+all:
+  hosts:
+    instance: &id001 {}
+ungrouped:
+  hosts:
+    instance: *id001
+  vars: {}

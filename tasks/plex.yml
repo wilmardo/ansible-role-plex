@@ -6,13 +6,13 @@
         description: Plex Yum Repository
         baseurl: https://downloads.plex.tv/repo/rpm/$basearch/
         gpgkey: https://downloads.plex.tv/plex-keys/PlexSign.key
-        gpgcheck: yes
+        gpgcheck: true
 
     - name: Yum install Plex
       yum:
         name: plexmediaserver
         state: present
-        update_cache: yes
+        update_cache: true
       notify: restart plex
 
   when: ansible_os_family == "RedHat"
@@ -55,7 +55,7 @@
       apt:
         name: plexmediaserver
         state: present
-        update_cache: yes
+        update_cache: true
       notify: restart plex
 
   when: ansible_os_family == "Debian"
@@ -63,5 +63,5 @@
 - name: Autostart Plex and start service
   service:
     name: plexmediaserver
-    enabled: yes
+    enabled: true
   notify: restart plex

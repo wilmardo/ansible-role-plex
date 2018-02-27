@@ -11,6 +11,7 @@
   git:
     repo: https://github.com/mrworf/plexupdate.git
     dest: "{{ plexupdate_install_location }}"
+    version: "{{ plexupdate_version }}"
 
 - name: Create desired config
   template:

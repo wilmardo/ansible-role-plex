@@ -16,19 +16,20 @@
   user:
     name: "{{ plexpy_user }}"
     group: "{{ plexpy_group }}"
-    createhome: no
+    createhome: false
 
 - name: Clone Plexpy repo
   git:
     repo: https://github.com/JonnyWong16/plexpy
     dest: "{{ plexpy_install_location }}"
+    version: "{{ plexpy_version }}"
 
 - name: Set permissions
   file:
     path: "{{ plexpy_install_location }}"
     owner: "{{ plexpy_user }}"
     group: "{{ plexpy_group }}"
-    recurse: yes
+    recurse: true
   changed_when: false
 
 - block:
@@ -43,8 +44,8 @@
     - name: Autostart Plexpy and restart service
       systemd:
         name: plexpy
-        enabled: yes
-        daemon_reload: yes
+        enabled: true
+        daemon_reload: true
       notify: restart plexpy
 
   when: (ansible_distribution == 'CentOS' and ansible_distribution_major_version == "7") or
@@ -69,7 +70,7 @@
     - name: Autostart Plexpy and restart service
       service:
         name: plexpy
-        enabled: yes
+        enabled: true
       notify: restart plexpy
 
   when: ansible_distribution == 'CentOS' and ansible_distribution_version == '6'
@@ -92,7 +93,7 @@
     - name: Autostart Plexpy and restart service
       service:
         name: plexpy
-        enabled: yes
+        enabled: true
       notify: restart plexpy
 
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_version|int <= 15.10

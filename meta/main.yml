@@ -1,3 +1,4 @@
+---
 galaxy_info:
   author: wilmardo
   description: |
@@ -8,22 +9,22 @@ galaxy_info:
   min_ansible_version: 2.2
 
   platforms:
-  - name: EL
-    versions:
-      - 7
-      - 6
+    - name: EL
+      versions:
+        - 7
+        - 6
 
-  - name: Ubuntu
-    versions:
-    - precise
-    - trusty
-    - xenial
+    - name: Ubuntu
+      versions:
+        - precise
+        - trusty
+        - xenial
 
-  - name: Debian
-    versions:
-    - wheezy
-    - jessie
-    - stretch
+    - name: Debian
+      versions:
+        - wheezy
+        - jessie
+        - stretch
 
   galaxy_tags:
     - plex
