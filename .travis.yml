@@ -19,7 +19,7 @@ matrix:
     - env: IMAGE="centos:6"
     - env: IMAGE="fedora:27" COMMAND="/usr/sbin/init"
     - env: IMAGE="fedora:26"
-    - env: IMAGE="centos:7" COMMAND="/usr/sbin/init" env: ANSIBLE_VERSION='ansible>=2.2.0,<2.3.0' #2.2.x security only
+    - env: IMAGE="centos:7" COMMAND="/usr/sbin/init" ANSIBLE_VERSION='ansible>=2.2.0,<2.3.0' #2.2.x security only
     - env: IMAGE="centos:7" COMMAND="/usr/sbin/init" ANSIBLE_VERSION='ansible>=2.3.0,<2.4.0' #2.3.x bugs and security
     - env: IMAGE="centos:7" COMMAND="/usr/sbin/init" ANSIBLE_VERSION='ansible>=2.4.0,<2.5.0' #2.4.x bugs and security
     - env: IMAGE="centos:7" COMMAND="/usr/sbin/init" ANSIBLE_VERSION='git+https://github.com/ansible/ansible.git@devel' #2.5 DEVEL
