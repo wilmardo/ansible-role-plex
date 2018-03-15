@@ -6,7 +6,7 @@ driver:
 lint:
   name: yamllint
 platforms:
-  - name: ${IMAGE}
+  - name: instance
     image: ${IMAGE}
     privileged: true
     command: ${COMMAND}
