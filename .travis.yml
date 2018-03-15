@@ -2,11 +2,15 @@
 language: python
 sudo: required
 dist: trusty
-cache: pip
+cache:
+  directories:
+    - "$HOME/ansible-role-plex/molecule/default/.molecule"
+  pip: true
 env:
   global:
     - fast_finish: true
     - MAKEFLAGS="-j 2"
+    - COMMAND=bash -c \"while true; do sleep 10000; done\"
 matrix:
   include:
 #    - env: IMAGE="debian:9"
