@@ -35,7 +35,7 @@
 - block:
     - name: Move init script for using systemd
       template:
-        src: plexpy/init.systemd.jinja2
+        src: plexpy/init.systemd.j2
         dest: /lib/systemd/system/plexpy.service
         owner: root
         group: root
@@ -64,7 +64,7 @@
 
     - name: Set defaults in file
       template:
-        src: plexpy/centos-plexpy.jinja2
+        src: plexpy/centos-plexpy.j2
         dest: /etc/default/plexpy
 
     - name: Autostart Plexpy and restart service
@@ -87,7 +87,7 @@
 
     - name: Set defaults in file
       template:
-        src: plexpy/ubuntu-plexpy.jinja2
+        src: plexpy/ubuntu-plexpy.j2
         dest: /etc/default/plexpy
 
     - name: Autostart Plexpy and restart service
