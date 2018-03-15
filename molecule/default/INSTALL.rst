@@ -5,13 +5,12 @@ Install
 Requirements
 ============
 
-* Vagrant
-* Virtualbox, Parallels, VMware Fusion, VMware Workstation or VMware Desktop
-* python-vagrant
+* Docker Engine
+* docker-py
 
 Install
 =======
 
 .. code-block:: bash
 
-  $ sudo pip install python-vagrant
+  $ sudo pip install docker-py

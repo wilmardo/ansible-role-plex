@@ -2,14 +2,16 @@
 dependency:
   name: galaxy
 driver:
-  name: vagrant
-  provider:
-    name: virtualbox
+  name: docker
 lint:
   name: yamllint
 platforms:
-  - name: instance
-    box: centos/7
+  - name: ${IMAGE}
+    image: ${IMAGE}
+    privileged: true
+    command: ${COMMAND}
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
 provisioner:
   name: ansible
   lint:
