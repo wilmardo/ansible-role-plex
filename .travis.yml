@@ -41,7 +41,7 @@ before_install:
 
 install:
   - if [ "$ANSIBLE_VERSION" ]; then pip install $ANSIBLE_VERSION; else pip install ansible; fi
-  - pip install molecule dockerpy
+  - pip install molecule docker-py
 
 script:
   - molecule --debug test
