@@ -3,8 +3,6 @@ language: python
 sudo: required
 dist: trusty
 cache:
-  directories:
-    - "$HOME/ansible-role-plex/molecule/default/.molecule"
   pip: true
 env:
   global:
