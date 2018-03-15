@@ -9,22 +9,14 @@ env:
     - MAKEFLAGS="-j 2"
 matrix:
   include:
-    - env: IMAGE="debian/9"
-      env: COMMAND=""
-    - env: IMAGE="debian/8"
-      env: COMMAND=""
-    - env: IMAGE="ubuntu/16.04"
-      env: COMMAND=""
-    - env: IMAGE="ubuntu/14.04"
-      env: COMMAND=""
-    - env: IMAGE="centos/7"
-      env: COMMAND="/usr/lib/systemd/systemd"
-    - env: IMAGE="centos/6"
-      env: COMMAND="/sbin/init"
-    - env: IMAGE="fedora/27"
-      env: COMMAND=""
-    - env: IMAGE="fedora/26"
-      env: COMMAND="/sbin/init"
+    - env: IMAGE="debian/9" COMMAND=""
+    - env: IMAGE="debian/8" COMMAND=""
+    - env: IMAGE="ubuntu/16.04" COMMAND=""
+    - env: IMAGE="ubuntu/14.04" COMMAND=""
+    - env: IMAGE="centos/7" COMMAND="/usr/lib/systemd/systemd"
+    - env: IMAGE="centos/6" COMMAND="/sbin/init"
+    - env: IMAGE="fedora/27" COMMAND=""
+    - env: IMAGE="fedora/26" COMMAND="/sbin/init"
 #    - env: IMAGE="ubuntu/16.04"
 #      env: COMMAND="/usr/lib/systemd/systemd"
 #      env: ANSIBLE_VERSION='ansible>=2.2.0,<2.3.0' #2.2.x security only
@@ -52,7 +44,7 @@ install:
   - pip install molecule
 
 script:
-  - pipenv run molecule test
+  - molecule test
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
