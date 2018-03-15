@@ -9,7 +9,7 @@ platforms:
   - name: ${IMAGE}
     image: ${IMAGE}
     privileged: true
-    {% if ${COMMAND} %}command: ${COMMAND} {% endif %}
+    command: ${COMMAND}
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
 provisioner:
