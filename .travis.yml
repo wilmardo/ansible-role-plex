@@ -24,6 +24,11 @@ env:
     - IMAGE="centos:7" COMMAND="/usr/sbin/init" ANSIBLE_VERSION='git+https://github.com/ansible/ansible.git@devel' #2.5 DEVEL
     - IMAGE="centos:7" COMMAND="/usr/sbin/init" ANSIBLE_PYTHON_INTERPRETER=/usr/bin/python3' #Python3
 
+matrix:
+  allow_failures:
+    - IMAGE="centos:7" COMMAND="/usr/sbin/init" ANSIBLE_VERSION='git+https://github.com/ansible/ansible.git@devel' #2.5 DEVEL
+    - IMAGE="centos:7" COMMAND="/usr/sbin/init" ANSIBLE_PYTHON_INTERPRETER=/usr/bin/python3' #Python3
+
 services:
   - docker
 
