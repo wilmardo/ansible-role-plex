@@ -1,5 +1,5 @@
 ---
-- name: Install git
+- name: Install git & wget
   package:
     name: "{{ item }}"
     state: present
@@ -18,11 +18,17 @@
     src: plexupdate/plexupdate.conf.j2
     dest: "{{ plexupdate_config_location }}"
 
+- name: Ensure cron is installed for Redhat
+  package:
+    name: cronie
+    state: present
+  when: ansible_os_family == "RedHat" and (plexupdate_autoinstall or plexupdate_autoupdate)
+
 - name: Create cron config
   template:
     src: plexupdate/plexupdate.cron.conf.j2
     dest: "/etc/plexupdate.cron.conf"
-  when: plexupdate_autoinstall or plexupdate_autoupdate
+  when: plexupdate_autoinstall or plexupdate_autoupdat
 
 - name: Create cron job
   file:

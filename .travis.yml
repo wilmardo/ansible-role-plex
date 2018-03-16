@@ -10,20 +10,32 @@ env:
     - MAKEFLAGS="-j 2"
     - COMMAND=bash -c \"while true; do sleep 10000; done\"
 matrix:
-  include:
-    - env: IMAGE="debian:9"
-    - env: IMAGE="debian:8"
-    - env: IMAGE="ubuntu:16.04"
-    - env: IMAGE="ubuntu:14.04"
-    - env: IMAGE="centos:7" COMMAND="/usr/sbin/init"
-    - env: IMAGE="centos:6"
-    - env: IMAGE="fedora:27" COMMAND="/usr/sbin/init"
-    - env: IMAGE="fedora:26"
-    - env: IMAGE="centos:7" COMMAND="/usr/sbin/init" ANSIBLE_VERSION='ansible>=2.2.0,<2.3.0' #2.2.x security only
-    - env: IMAGE="centos:7" COMMAND="/usr/sbin/init" ANSIBLE_VERSION='ansible>=2.3.0,<2.4.0' #2.3.x bugs and security
-    - env: IMAGE="centos:7" COMMAND="/usr/sbin/init" ANSIBLE_VERSION='ansible>=2.4.0,<2.5.0' #2.4.x bugs and security
-    - env: IMAGE="centos:7" COMMAND="/usr/sbin/init" ANSIBLE_VERSION='git+https://github.com/ansible/ansible.git@devel' #2.5 DEVEL
-    - env: IMAGE="centos:7" COMMAND="/usr/sbin/init" ANSIBLE_PYTHON_INTERPRETER=/usr/bin/python3' #Python3
+  env:
+    - IMAGE: debian:9
+    - IMAGE: debian:8
+    - IMAGE: ubuntu:16.04
+    - IMAGE: ubuntu:14.04
+    - IMAGE: centos:7"
+      COMMAND: /usr/sbin/init
+    - IMAGE: centos:6
+    - IMAGE: fedora:27"
+      COMMAND: /usr/sbin/init
+    - IMAGE: fedora:26
+    - IMAGE: centos:7
+      COMMAND: /usr/sbin/init
+      ANSIBLE_VERSION: 'ansible>=2.2.0,<2.3.0' #2.2.x security only
+    - IMAGE: centos:7
+      COMMAND: "/usr/sbin/init"
+      ANSIBLE_VERSION: 'ansible>=2.3.0,<2.4.0' #2.3.x bugs and security
+    - IMAGE: centos:7
+      COMMAND: "/usr/sbin/init"
+      ANSIBLE_VERSION: 'ansible>=2.4.0,<2.5.0' #2.4.x bugs and security
+    - IMAGE: centos:7
+      COMMAND: "/usr/sbin/init"
+      ANSIBLE_VERSION: 'git+https://github.com/ansible/ansible.git@devel' #2.5 DEVEL
+    - IMAGE: centos:7
+      COMMAND: "/usr/sbin/init"
+      ANSIBLE_PYTHON_INTERPRETER: /usr/bin/python3' #Python3
 
 services:
   - docker
