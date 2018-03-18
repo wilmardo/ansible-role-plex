@@ -1,16 +1,16 @@
 ---
-# If PlexPy will get installed
-plexpy_install: yes
-# User to run plexpy as
-plexpy_user: "plexpy"
-# Group to run plexpy as
-plexpy_group: "plexpy"
-# PlexPy install location
-plexpy_install_location: "/opt/plexpy/"
-# PlexPy configuration location (recommended is to put it somewhere in /etc)
-plexpy_config_location: "/etc/plexpyconfig.ini"
-# PlexPy data location (recommended is to NOT put it in your PlexPy exec dir)
-plexpy_data_location: "/opt/plexpy/data"
+# If Tautulli will get installed
+tautulli_install: yes
+# User to run tautulli as
+tautulli_user: "tautulli"
+# Group to run tautulli as
+tautulli_group: "tautulli"
+# Tautulli install location
+tautulli_install_location: "/opt/tautulli/"
+# Tautulli configuration location (recommended is to put it somewhere in /etc)
+tautulli_config_location: "/etc/tautulli-config.ini"
+# Tautulli data location (recommended is to NOT put it in your Tautulli exec dir)
+tautulli_data_location: "/opt/tautulli/data"
 
 # If plexupdate will get installed
 plexupdate_install: yes

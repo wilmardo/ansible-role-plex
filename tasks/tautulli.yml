@@ -15,43 +15,43 @@
 
 - name: Create user
   group:
-    name: "{{ plexpy_group }}"
+    name: "{{ tautulli_group }}"
     state: present
 
 - name: Create user
   user:
-    name: "{{ plexpy_user }}"
-    group: "{{ plexpy_group }}"
+    name: "{{ tautulli_user }}"
+    group: "{{ tautulli_group }}"
     createhome: no
 
-- name: Clone Plexpy repo
+- name: Clone Tautulli repo
   git:
-    repo: https://github.com/JonnyWong16/plexpy
-    dest: "{{ plexpy_install_location }}"
+    repo: https://github.com/Tautulli/Tautulli.git
+    dest: "{{ tautulli_install_location }}"
 
 - name: Set permissions
   file:
-    path: "{{ plexpy_install_location }}"
-    owner: "{{ plexpy_user }}"
-    group: "{{ plexpy_group }}"
+    path: "{{ tautulli_install_location }}"
+    owner: "{{ tautulli_user }}"
+    group: "{{ tautulli_group }}"
     recurse: yes
   changed_when: false
 
 - block:
     - name: Move init script for using systemd
       template:
-        src: plexpy/init-systemd.jinja2
-        dest: /lib/systemd/system/plexpy.service
+        src: tautulli/init-systemd.j2
+        dest: /lib/systemd/system/tautulli.service
         owner: root
         group: root
         mode: 0775
 
-    - name: Autostart Plexpy and restart service
+    - name: Autostart Tautulli and restart service
       systemd:
-        name: plexpy
+        name: tautulli
         enabled: yes
         daemon_reload: yes
-      notify: restart plexpy
+      notify: restart tautulli
 
   when: (ansible_distribution == 'CentOS' and ansible_distribution_major_version == "7") or
         (ansible_distribution == 'Ubuntu' and ansible_distribution_version|int >= 15.04) or
@@ -70,26 +70,26 @@
 
     - name: Move init script Centos 6
       template:
-        src: plexpy/init-centos-fedora.jinja2
-        dest: /etc/init.d/plexpy
+        src: tautulli/init-centos-fedora.j2
+        dest: /etc/init.d/tautulli
         owner: root
         group: root
         mode: 0775
-      notify: restart plexpy
+      notify: restart tautulli
 
-    - name: Autostart Plexpy and restart service
+    - name: Autostart Tautulli and restart service
       service:
-        name: plexpy
+        name: tautulli
         enabled: yes
-      notify: restart plexpy
+      notify: restart tautulli
 
   when: ansible_distribution == 'CentOS' and ansible_distribution_major_version == '6'
 
 - block:
     - name: Move init script for older ubuntu versions
       file:
-        src: "{{ plexpy_install_location }}/init-scripts/init.ubuntu"
-        dest: /etc/init.d/plexpy
+        src: "{{ tautulli_install_location }}/init-scripts/init.ubuntu"
+        dest: /etc/init.d/tautulli
         owner: root
         group: root
         mode: 0775
@@ -97,13 +97,13 @@
 
     - name: Set defaults in file
       template:
-        src: plexpy/ubuntu-plexpy-defaults.jinja2
-        dest: /etc/default/plexpy
+        src: tautulli/ubuntu-tautulli-defaults.j2
+        dest: /etc/default/tautulli
 
-    - name: Autostart Plexpy and restart service
+    - name: Autostart Tautulli and restart service
       service:
-        name: plexpy
+        name: tautulli
         enabled: yes
-      notify: restart plexpy
+      notify: restart tautulli
 
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_version|int <= 15.10

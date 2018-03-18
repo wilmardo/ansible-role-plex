@@ -1,7 +1,7 @@
 galaxy_info:
   author: wilmardo
   description: |
-    Role to install Plex Media Server, PlexPy and Plexupdate in one go!
+    Role to install Plex Media Server, Tautulli (former PlexPy) and Plexupdate in one go!
 
   license: BSD-3-Clause-Clear
 
@@ -27,7 +27,8 @@ galaxy_info:
   galaxy_tags:
     - plex
     - plexmediaserver
-    - plexpy
+    - tautulli
     - plexupdate
+    - plexpy
 
 dependencies: []
