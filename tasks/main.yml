@@ -2,8 +2,8 @@
 # tasks file for plex
 - include: plex.yml
 
-- include: plexpy.yml
-  when: plexpy_install
+- include: tautulli.yml
+  when: tautulli_install
 
 - include: plexupdate.yml
   when: plexupdate_install
