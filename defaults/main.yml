@@ -6,11 +6,11 @@ tautulli_user: "tautulli"
 # Group to run tautulli as
 tautulli_group: "tautulli"
 # Tautulli install location
-tautulli_install_location: "/opt/tautulli/"
+tautulli_install_location: "/opt/Tautulli/"
 # Tautulli configuration location (recommended is to put it somewhere in /etc)
 tautulli_config_location: "/etc/tautulli-config.ini"
 # Tautulli data location (recommended is to NOT put it in your Tautulli exec dir)
-tautulli_data_location: "/opt/tautulli/data"
+tautulli_data_location: "{{ tautulli_install_location }}/data"
 
 # If plexupdate will get installed
 plexupdate_install: yes
