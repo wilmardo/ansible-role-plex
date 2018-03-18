@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/wilmardo/ansible-role-plex.svg?branch=master)](https://travis-ci.org/wilmardo/ansible-role-plex)
 [![Galaxy](https://img.shields.io/badge/galaxy-wilmardo.plex-blue.svg)](https://galaxy.ansible.com/wilmardo/plex/)
 
-The ultimate Plex role for Ansible, install [Plex](https://www.plex.tv/), [PlexPy](https://github.com/JonnyWong16/plexpy) and [Plexupdate](https://github.com/mrworf/plexupdate) in a whimp.
+The ultimate Plex role for Ansible, install [Plex](https://www.plex.tv/), [Tautulli](https://github.com/Tautulli/Tautulli)(former PlexPy) and [Plexupdate](https://github.com/mrworf/plexupdate) in a whimp.
 
 ## Requirements
 
@@ -13,24 +13,24 @@ None but when plexupdate_notify is enabled a working crontab email configuration
 
 ### Default usage
 
-As default the role installs Plex, PlexPy and Plexupdate, if you want to change this, look at [Advanced usage](#advanced-usage) section for the available variables.
+As default the role installs Plex, Tautulli (former PlexPy) and Plexupdate, if you want to change this, look at [Advanced usage](#advanced-usage) section for the available variables.
 
 ### Advanced usage
 
 For more advanced usage the following variables are available:
 ```yaml
-# If PlexPy will get installed
-plexpy_install: yes
-# User to run plexpy as
-plexpy_user: "plexpy"
-# Group to run plexpy as
-plexpy_group: "plexpy"
-# PlexPy install location
-plexpy_install_location: "/opt/plexpy/"
-# PlexPy configuration location (recommended is to put it somewhere in /etc)
-plexpy_config_location: "/etc/plexpyconfig.ini"
-# PlexPy data location (recommended is to NOT put it in your PlexPy exec dir)
-plexpy_data_location: "/opt/plexpy/data"
+# If Tautulli will get installed
+tautulli_install: yes
+# User to run tautulli as
+tautulli_user: "tautulli"
+# Group to run tautulli as
+tautulli_group: "tautulli"
+# Tautulli install location
+tautulli_install_location: "/opt/tautulli/"
+# Tautulli configuration location (recommended is to put it somewhere in /etc)
+tautulli_config_location: "/etc/tautulli-config.ini"
+# Tautulli data location (recommended is to NOT put it in your Tautulli exec dir)
+tautulli_data_location: "/opt/tautulli/data"
 
 # If plexupdate will get installed
 plexupdate_install: yes
@@ -54,20 +54,20 @@ plexupdate_notify: no
 
 ## Dependencies
 
-None but for PlexPy on Centos 6, Python 2.7 out of the [Software Collections](https://www.softwarecollections.org/en/scls/rhscl/python27/) is installed
+None but for Tautulli (former PlexPy) on Centos 6, Python 2.7 out of the [Software Collections](https://www.softwarecollections.org/en/scls/rhscl/python27/) is installed
 
 ## Example Playbook
 
-Install Plex, PlexPy and plexupdate
+Install Plex, Tautulli and plexupdate
 ```yaml
 - hosts: plexservers
   roles:
     - { role: wilmardo.plex }
 ```
 
-After running the playbook Plex and PlexPy need to be setup:
+After running the playbook Plex and Tautulli need to be setup:
 - Plex can be found at http://ipadress:32400/web
-- PlexPy can be found at http://ipaddress:8181
+- Tautulli can be found at http://ipaddress:8181
 
 ## License
 

@@ -13,14 +13,14 @@
       uri:
         url: "http://{{ inventory_hostname }}:32400/web"
 
-    - name: Wait for Plexpy to succesfully restart
+    - name: Wait for Tautulli to succesfully restart
       wait_for:
         port: 8181
 
-    - name: Test PlexPy webinterface
+    - name: Test Tautulli webinterface
       uri:
         url: "http://{{ inventory_hostname }}:8181/home"
-      when: plexpy_install
+      when: tautulli_install
 
     - name: Test with plexupdate if latest version is installed
       shell: "{{ plexupdate_install_location }}/plexupdate.sh"
