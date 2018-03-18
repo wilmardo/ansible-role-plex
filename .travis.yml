@@ -10,37 +10,34 @@ env:
     - MAKEFLAGS="-j 2"
     - COMMAND=bash -c \"while true; do sleep 10000; done\"
   matrix:
-    - NAME=debian9 IMAGE="debian:9"
-    - NAME=debian8 IMAGE="debian:8"
-    - NAME=ubuntu1604 IMAGE="ubuntu:16.04"
-    - NAME=ubuntu1404 IMAGE="ubuntu:14.04"
-    - NAME=centos7 IMAGE="centos:7" COMMAND="/usr/sbin/init"
-    - NAME=centos6 IMAGE="centos:6"
-    - NAME=fedora27 IMAGE="fedora:27" COMMAND="/usr/sbin/init"
-    - NAME=fedora26 IMAGE="fedora:26"
-    - NAME=centos7-an22 IMAGE="centos:7" COMMAND="/usr/sbin/init" ANSIBLE_VERSION='ansible>=2.2.0,<2.3.0' #2.2.x security only
-    - NAME=centos7-an23 IMAGE="centos:7" COMMAND="/usr/sbin/init" ANSIBLE_VERSION='ansible>=2.3.0,<2.4.0' #2.3.x bugs and security
-    - NAME=centos7-an24 IMAGE="centos:7" COMMAND="/usr/sbin/init" ANSIBLE_VERSION='ansible>=2.4.0,<2.5.0' #2.4.x bugs and security
-    - NAME=centos7-andevel IMAGE="centos:7" COMMAND="/usr/sbin/init" ANSIBLE_VERSION='git+https://github.com/ansible/ansible.git@devel' #2.5 DEVEL
-    - NAME=centos7-py3 IMAGE="centos:7" COMMAND="/usr/sbin/init" ANSIBLE_PYTHON_INTERPRETER=/usr/bin/python3' #Python3
+    - ANSIBLE_VERSION='ansible>=2.2.0,<2.3.0' #2.2.x security only
+    - ANSIBLE_VERSION='ansible>=2.3.0,<2.4.0' #2.3.x bugs and security
+    - ANSIBLE_VERSION='ansible>=2.4.0,<2.5.0' #2.4.x bugs and security
+    - ANSIBLE_VERSION='git+https://github.com/ansible/ansible.git@devel' #2.5 DEVEL
+    - ANSIBLE_PYTHON_INTERPRETER=/usr/bin/python3' #Python3
 
 matrix:
   allow_failures:
-    - NAME=centos7-andevel IMAGE="centos:7" COMMAND="/usr/sbin/init" ANSIBLE_VERSION='git+https://github.com/ansible/ansible.git@devel' #2.5 DEVEL
-    - NAME=centos7-py3 IMAGE="centos:7" COMMAND="/usr/sbin/init" ANSIBLE_PYTHON_INTERPRETER=/usr/bin/python3' #Python3
+    - ANSIBLE_VERSION='git+https://github.com/ansible/ansible.git@devel' #2.5 DEVEL
+    - ANSIBLE_PYTHON_INTERPRETER=/usr/bin/python3' #Python3
 
 services:
   - docker
 
 before_install:
   - sudo apt-get -qq update
+  - sudo apt-get -qq install --only-upgrade docker-ce -y
 
 install:
   - if [ "$ANSIBLE_VERSION" ]; then pip install $ANSIBLE_VERSION; else pip install ansible; fi
   - pip install molecule docker-py
 
 script:
-  - molecule --debug test
+  - ansible --version
+  - molecule test
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
+  email:
+    on_failure: change
+    on_success: never
