@@ -4,7 +4,7 @@
     name: plexmediaserver
     state: restarted
 
-- name: restart plexpy
+- name: restart tautulli
   service:
-    name: plexpy
+    name: tautulli
     state: restarted
