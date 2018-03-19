@@ -38,7 +38,7 @@
   when: plexupdate_autoinstall or plexupdate_autoupdate
 
 - name: Install latest plex with plexupdate
-  shell: "{{ plexupdate_install_location }}/plexupdate.sh --config {{ plexupdate_config_location }}"
+  command: "{{ plexupdate_install_location }}/plexupdate.sh --config {{ plexupdate_config_location }}"
   environment:
     DEBIAN_FRONTEND: noninteractive
     DEBIAN_INSTALL: "dpkg --force-confnew -i"
