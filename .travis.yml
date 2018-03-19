@@ -37,7 +37,7 @@ script:
   - molecule test
 
 notifications:
-  webhooks: https://galaxy.ansible.com/api/v1/notifications/
+#  webhooks: https://galaxy.ansible.com/api/v1/notifications/
   email:
     on_failure: change
     on_success: never
