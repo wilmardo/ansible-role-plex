@@ -63,8 +63,6 @@ platforms:
       - SYS_ADMIN
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-      - /dev/hugepages:/dev/hugepages
-      - /sys/fs/fuse/connections:/sys/fs/fuse/connections
     tmpfs:
       - /run
       - /run/locks
@@ -75,7 +73,7 @@ platforms:
 provisioner:
   name: ansible
   options:
-    vvv: true
+    v: true
   lint:
     name: ansible-lint
 
