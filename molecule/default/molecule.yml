@@ -41,21 +41,21 @@ platforms:
       - /run
       - /run/lock
 
-  - name: Fedora27
-    image: wilmardo/docker-fedora-ansible:27
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    tmpfs:
-      - /run
-      - /tmp
-
-  - name: Fedora26
-    image: wilmardo/docker-fedora-ansible:26
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    tmpfs:
-      - /run
-      - /tmp
+#  - name: Fedora27
+#    image: wilmardo/docker-fedora-ansible:27
+#    volumes:
+#      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+#    tmpfs:
+#      - /run
+#      - /tmp
+#
+#  - name: Fedora26
+#    image: wilmardo/docker-fedora-ansible:26
+#    volumes:
+#      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+#    tmpfs:
+#      - /run
+#      - /tmp
 
   - name: Ubuntu1604
     image: wilmardo/docker-ubuntu-ansible:16.04
