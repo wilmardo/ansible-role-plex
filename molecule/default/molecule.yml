@@ -20,6 +20,8 @@ platforms:
 
   - name: Centos6
     image: centos:6
+    ulimits:
+      - memlock:unlimited:unlimited
 
   - name: Debian9
     image: wilmardo/docker-debian-ansible:9
