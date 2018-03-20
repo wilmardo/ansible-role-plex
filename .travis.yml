@@ -9,8 +9,8 @@ env:
     - fast_finish: true
     - MAKEFLAGS="-j 2"
   matrix:
-#    - ANSIBLE_VERSION='ansible>=2.2.0,<2.3.0' #2.2.x security only
-#    - ANSIBLE_VERSION='ansible>=2.3.0,<2.4.0' #2.3.x bugs and security
+    - ANSIBLE_VERSION='ansible>=2.2.0,<2.3.0' #2.2.x security only
+    - ANSIBLE_VERSION='ansible>=2.3.0,<2.4.0' #2.3.x bugs and security
     - ANSIBLE_VERSION='ansible>=2.4.0,<2.5.0' #2.4.x bugs and security
     - ANSIBLE_VERSION='git+https://github.com/ansible/ansible.git@devel' #2.5 DEVEL
     - ANSIBLE_PYTHON_INTERPRETER=/usr/bin/python3' #Python3
@@ -33,7 +33,7 @@ install:
 
 script:
   - ansible --version
-  - molecule test
+  - molecule --debug test
 
 notifications:
 #  webhooks: https://galaxy.ansible.com/api/v1/notifications/
