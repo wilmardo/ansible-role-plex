@@ -31,8 +31,8 @@ platforms:
 
 provisioner:
   name: ansible
-#  options:
-#    v: true
+  options:
+    v: true
   env:
     ANSIBLE_PYTHON_INTERPRETER: /usr/bin/python3
   lint:

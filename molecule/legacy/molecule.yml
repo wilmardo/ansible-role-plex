@@ -9,13 +9,18 @@ lint:
   name: yamllint
 
 platforms:
+  - name: Centos6
+    image: centos:6
+    ulimits:
+      - memlock:60397977:60397977
+
   - name: Ubuntu1404
     image: ubuntu:14.04
 
 provisioner:
   name: ansible
-#  options:
-#    v: true
+  options:
+    v: true
   lint:
     name: ansible-lint
 
