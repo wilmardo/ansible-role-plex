@@ -1,7 +1,7 @@
 ---
 # If Tautulli will get installed
 tautulli_install: true
-# What version of Tautulli to install, gets passed to git module
+# Version of Tautulli to install, gets passed to git module
 tautulli_version: v2.0.24
 # User to run tautulli as
 tautulli_user: tautulli
@@ -16,6 +16,8 @@ tautulli_data_location: "{{ tautulli_install_location }}/data"
 
 # If plexupdate will get installed
 plexupdate_install: true
+# Version of Tautulli to install, gets passed to git module
+plexupdate_version: master
 # Plexupdate install location
 plexupdate_install_location: /opt/plexupdate/
 # Plexupdate config location
