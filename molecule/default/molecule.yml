@@ -33,16 +33,6 @@ platforms:
       - /run
       - /run/lock
 
-  - name: Debian8
-    image: wilmardo/docker-debian-ansible:8
-    capabilities:
-      - SYS_ADMIN
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    tmpfs:
-      - /run
-      - /run/lock
-
 #  - name: Fedora27
 #    image: wilmardo/docker-fedora-ansible:27
 #    volumes:
