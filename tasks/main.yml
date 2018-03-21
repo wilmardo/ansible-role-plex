@@ -9,4 +9,3 @@
 
 #- include: configure-firewalld.yml
 #  when: ansible_os_family == "RedHat"
-

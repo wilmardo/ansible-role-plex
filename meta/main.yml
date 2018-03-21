@@ -22,8 +22,8 @@ galaxy_info:
 
     - name: Debian
       versions:
-      - jessie
-      - stretch
+        - jessie
+        - stretch
 
   galaxy_tags:
     - plex

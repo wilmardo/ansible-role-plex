@@ -22,19 +22,20 @@
   user:
     name: "{{ tautulli_user }}"
     group: "{{ tautulli_group }}"
-    createhome: no
+    createhome: false
 
 - name: Clone Tautulli repo
   git:
     repo: https://github.com/Tautulli/Tautulli.git
     dest: "{{ tautulli_install_location }}"
+    version: "{{ tautulli_version }}"
 
 - name: Set permissions
   file:
     path: "{{ tautulli_install_location }}"
     owner: "{{ tautulli_user }}"
     group: "{{ tautulli_group }}"
-    recurse: yes
+    recurse: true
   changed_when: false
 
 - block:
@@ -49,8 +50,8 @@
     - name: Autostart Tautulli and restart service
       systemd:
         name: tautulli
-        enabled: yes
-        daemon_reload: yes
+        enabled: true
+        daemon_reload: true
       notify: restart tautulli
 
   when: (ansible_distribution == 'CentOS' and ansible_distribution_major_version == "7") or
@@ -66,7 +67,7 @@
     - name: Setup Python 2.7
       yum:
         name: python27
-        state: latest
+        state: present
 
     - name: Move init script Centos 6
       template:
@@ -80,7 +81,7 @@
     - name: Autostart Tautulli and restart service
       service:
         name: tautulli
-        enabled: yes
+        enabled: true
       notify: restart tautulli
 
   when: ansible_distribution == 'CentOS' and ansible_distribution_major_version == '6'
@@ -103,7 +104,7 @@
     - name: Autostart Tautulli and restart service
       service:
         name: tautulli
-        enabled: yes
+        enabled: true
       notify: restart tautulli
 
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_version|int <= 15.10
