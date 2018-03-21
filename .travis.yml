@@ -1,24 +1,37 @@
 ---
+dist: trusty
 language: python
 sudo: required
-dist: trusty
 cache:
   pip: true
+
 env:
   global:
     - fast_finish: true
     - MAKEFLAGS="-j 2"
-  matrix:
-    - ANSIBLE_VERSION='ansible>=2.2.0,<2.3.0' #2.2.x security only
-    - ANSIBLE_VERSION='ansible>=2.3.0,<2.4.0' #2.3.x bugs and security
-    - ANSIBLE_VERSION='ansible>=2.4.0,<2.5.0' #2.4.x bugs and security
-    - ANSIBLE_VERSION='git+https://github.com/ansible/ansible.git@devel' #2.5 DEVEL
-    - ANSIBLE_PYTHON_INTERPRETER=/usr/bin/python3' #Python3
+    - PIP='pip'
+    - ANSIBLE_VERSION='ansible'
 
 matrix:
+  include:
+    - python: '2.7'
+      env: ANSIBLE_VERSION='ansible>=2.2.0,<2.3.0'  # 2.2.x security only
+    - python: '2.7'
+      env: ANSIBLE_VERSION='ansible>=2.3.0,<2.4.0'  # 2.3.x bugs and security
+    - python: '2.7'
+      env: ANSIBLE_VERSION='ansible>=2.4.0,<2.5.0'  # 2.4.x bugs and security
+    - python: '2.7'
+      env: ANSIBLE_VERSION='--pre ansible'  # Pre-releases
+    - python: '2.7'
+      env: ANSIBLE_VERSION='git+https://github.com/ansible/ansible.git@devel'  # DEVEL
+    - python: '3.5'
+      env: PIP='pip3'
+
   allow_failures:
-    - ANSIBLE_VERSION='git+https://github.com/ansible/ansible.git@devel' #2.5 DEVEL
-    - ANSIBLE_PYTHON_INTERPRETER=/usr/bin/python3' #Python3
+    - python: '2.7'
+      env: ANSIBLE_VERSION='git+https://github.com/ansible/ansible.git@devel'  # DEVEL
+    - python: '3.5'
+      env: PIP='pip3'
 
 services:
   - docker
@@ -28,12 +41,11 @@ before_install:
   - sudo apt-get -qq install --only-upgrade docker-ce -y
 
 install:
-  - if [ "$ANSIBLE_VERSION" ]; then pip install $ANSIBLE_VERSION; else pip install ansible; fi
-  - pip install molecule docker-py
+  - $PIP install $ANSIBLE_VERSION molecule docker-py
 
 script:
   - ansible --version
-  - molecule --debug test
+  - molecule test
 
 notifications:
 #  webhooks: https://galaxy.ansible.com/api/v1/notifications/
