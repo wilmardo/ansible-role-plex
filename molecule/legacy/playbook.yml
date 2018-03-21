@@ -3,3 +3,33 @@
   hosts: all
   roles:
     - role: ansible-role-plex
+
+  post_tasks:
+    - name: Wait for Plex to succesfully restart
+      wait_for:
+        port: 32400
+
+    - name: Test Plex webinterface
+      uri:
+        url: "http://{{ inventory_hostname }}:32400/web"
+
+    - name: Wait for Tautulli to succesfully restart
+      wait_for:
+        port: 8181
+
+    - name: Test Tautulli webinterface
+      uri:
+        url: "http://{{ inventory_hostname }}:8181/home"
+      when: tautulli_install
+
+    - name: Test with plexupdate if latest version is installed
+      shell: "{{ plexupdate_install_location }}/plexupdate.sh"
+      failed_when: "'already installed' not in plexupdate_output.stdout"
+      changed_when: false
+      when: plexupdate_install
+      register: plexupdate_output
+
+    - name: Grab system Logs
+      shell: "PAGER=cat journalctl -xn || cat /var/log/messages || cat /var/log/syslog"
+      changed_when: false
+ignore_errors: yes
