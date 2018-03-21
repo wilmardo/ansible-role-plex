@@ -11,13 +11,14 @@ env:
     - MAKEFLAGS="-j 2"
     - PIP='pip'
     - ANSIBLE_VERSION='ansible'
+    - SCENARIO=default
 
 matrix:
   include:
     - python: '2.7'
-      env: ANSIBLE_VERSION='ansible>=2.2.0,<2.3.0'  # 2.2.x security only
+      env: SCENARIO=legacy ANSIBLE_VERSION='ansible>=2.2.0,<2.3.0'  # 2.2.x security only
     - python: '2.7'
-      env: ANSIBLE_VERSION='ansible>=2.3.0,<2.4.0'  # 2.3.x bugs and security
+      env: SCENARIO=legacy ANSIBLE_VERSION='ansible>=2.3.0,<2.4.0'  # 2.3.x bugs and security
     - python: '2.7'
       env: ANSIBLE_VERSION='ansible>=2.4.0,<2.5.0'  # 2.4.x bugs and security
     - python: '2.7'
@@ -25,13 +26,11 @@ matrix:
     - python: '2.7'
       env: ANSIBLE_VERSION='git+https://github.com/ansible/ansible.git@devel'  # DEVEL
     - python: '3.5'
-      env: PIP='pip3'
+      env: SCENARIO=python3 PIP='pip3'
 
   allow_failures:
     - python: '2.7'
       env: ANSIBLE_VERSION='git+https://github.com/ansible/ansible.git@devel'  # DEVEL
-    - python: '3.5'
-      env: PIP='pip3'
 
 services:
   - docker
@@ -45,7 +44,7 @@ install:
 
 script:
   - ansible --version
-  - molecule test
+  - molecule test --scenario-name $SCENARIO
 
 notifications:
 #  webhooks: https://galaxy.ansible.com/api/v1/notifications/
