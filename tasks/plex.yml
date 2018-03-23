@@ -30,7 +30,7 @@
 
     - name: Add Plex apt repo (Ubuntu & Debian with systemd)
       apt_repository:
-        repo: deb https://downloads.plex.tv/repo/deb/ public main
+        repo: deb https://downloads.plex.tv/repo/deb/ ./public main
         state: present
       changed_when: false
 
