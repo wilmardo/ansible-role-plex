@@ -1,4 +1,10 @@
 ---
+- name: Install Yum on Fedora
+  dnf:
+    name: yum
+    state: present
+  when: ansible_distribution == 'Fedora'
+
 - block:
     - name: Add Plex Yum repo
       yum_repository:
