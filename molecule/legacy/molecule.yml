@@ -15,7 +15,7 @@ platforms:
       - memlock:60397977:60397977
 
   - name: Ubuntu1404
-    image: ubuntu:14.04
+    image: wilmardo/docker-ubuntu-ansible:14.04
 
 provisioner:
   name: ansible
