@@ -35,6 +35,8 @@ platforms:
 
   - name: Fedora27
     image: wilmardo/docker-fedora-ansible:27
+    capabilities:
+      - SYS_ADMIN
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     tmpfs:
@@ -43,6 +45,8 @@ platforms:
 
   - name: Fedora26
     image: wilmardo/docker-fedora-ansible:26
+    capabilities:
+      - SYS_ADMIN
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     tmpfs:
