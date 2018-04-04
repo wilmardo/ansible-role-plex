@@ -2,7 +2,7 @@
 # If Tautulli will get installed
 tautulli_install: true
 # Version of Tautulli to install, gets passed to git module
-tautulli_version: v2.0.24
+tautulli_version: v2.0.28
 # User to run tautulli as
 tautulli_user: tautulli
 # Group to run tautulli as
