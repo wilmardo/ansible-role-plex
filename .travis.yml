@@ -44,7 +44,7 @@ install:
 
 script:
   - ansible --version
-  - molecule --debug test --scenario-name $SCENARIO
+  - molecule test --scenario-name $SCENARIO
 
 notifications:
 #  webhooks: https://galaxy.ansible.com/api/v1/notifications/
