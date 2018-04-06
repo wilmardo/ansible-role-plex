@@ -1,4 +1,10 @@
 ---
+- name: Install Yum on Fedora
+  dnf:
+    name: yum
+    state: present
+  when: ansible_distribution == 'Fedora'
+
 - block:
     - name: Add Plex Yum repo
       yum_repository:
@@ -6,13 +12,13 @@
         description: Plex Yum Repository
         baseurl: https://downloads.plex.tv/repo/rpm/$basearch/
         gpgkey: https://downloads.plex.tv/plex-keys/PlexSign.key
-        gpgcheck: yes
+        gpgcheck: true
 
     - name: Yum install Plex
       yum:
         name: plexmediaserver
         state: present
-        update_cache: yes
+        update_cache: true
       notify: restart plex
 
   when: ansible_os_family == "RedHat"
@@ -23,39 +29,22 @@
         name: apt-transport-https
         state: present
 
-    - block:
-        - name: Add Plex apt key (Ubuntu & Debian with systemd)
-          apt_key:
-            url: https://downloads.plex.tv/plex-keys/PlexSign.key
-            state: present
+    - name: Add Plex apt key (Ubuntu & Debian with systemd)
+      apt_key:
+        url: https://downloads.plex.tv/plex-keys/PlexSign.key
+        state: present
 
-        - name: Add Plex apt repo (Ubuntu & Debian with systemd)
-          apt_repository:
-            repo: deb https://downloads.plex.tv/repo/deb/ public main
-            state: present
-          changed_when: false
-
-      when: (ansible_distribution == 'Ubuntu') or (ansible_distribution == 'Debian' and ansible_distribution_major_version|int >= 9)
-
-    - block:
-        - name: Add Plex Apt key (Debian sysVinit)
-          apt_key:
-            url: http://shell.ninthgate.se/packages/shell.ninthgate.se.gpg.key
-            state: present
-
-        - name: Add ninthgate apt repo (Debian sysVinit)
-          apt_repository:
-            repo: deb http://shell.ninthgate.se/packages/debian wheezy main
-            state: present
-          changed_when: false
-
-      when: ansible_distribution == 'Debian' and ansible_distribution_major_version|int <= 8
+    - name: Add Plex apt repo (Ubuntu & Debian with systemd)
+      apt_repository:
+        repo: deb https://downloads.plex.tv/repo/deb/ ./public main
+        state: present
+      changed_when: false
 
     - name: Apt install Plex
       apt:
         name: plexmediaserver
         state: present
-        update_cache: yes
+        update_cache: true
       notify: restart plex
 
   when: ansible_os_family == "Debian"
@@ -63,5 +52,5 @@
 - name: Autostart Plex and start service
   service:
     name: plexmediaserver
-    enabled: yes
+    enabled: true
   notify: restart plex

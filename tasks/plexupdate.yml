@@ -1,5 +1,5 @@
 ---
-- name: Install git
+- name: Install git & wget
   package:
     name: "{{ item }}"
     state: present
@@ -11,11 +11,18 @@
   git:
     repo: https://github.com/mrworf/plexupdate.git
     dest: "{{ plexupdate_install_location }}"
+    version: "{{ plexupdate_version }}"
 
 - name: Create desired config
   template:
     src: plexupdate/plexupdate.conf.j2
     dest: "{{ plexupdate_config_location }}"
+
+- name: Ensure cron is installed for Redhat
+  package:
+    name: cronie
+    state: present
+  when: ansible_os_family == "RedHat" and (plexupdate_autoinstall or plexupdate_autoupdate)
 
 - name: Create cron config
   template:
@@ -31,7 +38,9 @@
   when: plexupdate_autoinstall or plexupdate_autoupdate
 
 - name: Install latest plex with plexupdate
-  shell: "printf 'Y\n' | {{ plexupdate_install_location }}/plexupdate.sh --config {{ plexupdate_config_location }}"
+  command: "{{ plexupdate_install_location }}/plexupdate.sh --config {{ plexupdate_config_location }}"
+  environment:
+    DEBIAN_FRONTEND: noninteractive
   changed_when: "'already installed' not in plexupdate_output.stdout"
   register: plexupdate_output
   notify: restart plex
