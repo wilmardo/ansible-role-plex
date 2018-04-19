@@ -21,13 +21,6 @@ platforms:
 
   - name: Ubuntu1604
     image: wilmardo/docker-ubuntu-ansible:16.04
-    capabilities:
-      - SYS_ADMIN
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    tmpfs:
-      - /run
-      - /run/locks
 
 provisioner:
   name: ansible
