@@ -1,5 +1,7 @@
 ---
 - include: plex.yml
+  when: (ansible_os_family == 'RedHat') or
+        (ansible_os_family == 'Debian')
 
 - include: tautulli.yml
   when: tautulli_install
