@@ -10,61 +10,19 @@ lint:
 
 platforms:
   - name: Centos7
-    image: wilmardo/docker-centos-ansible:7
-    capabilities:
-      - SYS_ADMIN
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    tmpfs:
-      - /run
-
-  - name: Centos6
-    image: centos:6
-    ulimits:
-      - memlock:60397977:60397977
+    image: lansible/centos:7
 
   - name: Debian9
-    image: wilmardo/docker-debian-ansible:9
-    capabilities:
-      - SYS_ADMIN
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    tmpfs:
-      - /run
-      - /run/lock
+    image: lansible/debian:9
 
   - name: Fedora27
-    image: wilmardo/docker-fedora-ansible:27
-    capabilities:
-      - SYS_ADMIN
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    tmpfs:
-      - /run
-      - /tmp
+    image: lansible/fedora:27
 
   - name: Fedora26
-    image: wilmardo/docker-fedora-ansible:26
-    capabilities:
-      - SYS_ADMIN
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    tmpfs:
-      - /run
-      - /tmp
+    image: lansible/fedora:26
 
   - name: Ubuntu1604
-    image: wilmardo/docker-ubuntu-ansible:16.04
-    capabilities:
-      - SYS_ADMIN
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    tmpfs:
-      - /run
-      - /run/locks
-
-  - name: Ubuntu1404
-    image: wilmardo/docker-ubuntu-ansible:14.04
+    image: lansible/ubuntu:16.04
 
 provisioner:
   name: ansible

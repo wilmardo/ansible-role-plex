@@ -1,4 +1,5 @@
 ---
+# TODO: Needed to add repo, search for better way then install yum
 - name: Install Yum on Fedora
   dnf:
     name: yum

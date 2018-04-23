@@ -10,24 +10,10 @@ lint:
 
 platforms:
   - name: Debian9
-    image: wilmardo/docker-debian-ansible:9
-    capabilities:
-      - SYS_ADMIN
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    tmpfs:
-      - /run
-      - /run/lock
+    image: lansible/debian:9
 
   - name: Ubuntu1604
-    image: wilmardo/docker-ubuntu-ansible:16.04
-    capabilities:
-      - SYS_ADMIN
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    tmpfs:
-      - /run
-      - /run/locks
+    image: lansible/ubuntu:16.04
 
 provisioner:
   name: ansible

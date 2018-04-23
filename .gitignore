@@ -3,3 +3,4 @@
 .idea/
 *.retry
 *.log
+*.pyc
