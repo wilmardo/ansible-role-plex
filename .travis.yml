@@ -17,7 +17,6 @@ matrix:
     - env: ANSIBLE_VERSION='<2.5.0'  # 2.4.x bugs and security
     - env: ANSIBLE_VERSION='<2.6.0'  # 2.5.x bugs and security
     - env: ANSIBLE_VERSION=''  # Pre-releases
-    - env: SCENARIO=plexupdate-install
 
   allow_failures:
     - env: ANSIBLE_VERSION=''  # Pre-releases
