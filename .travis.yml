@@ -9,28 +9,17 @@ env:
   global:
     - fast_finish: true
     - MAKEFLAGS="-j 2"
-    - PIP='pip'
-    - ANSIBLE_VERSION='ansible'
     - SCENARIO=default
 
 matrix:
   include:
-    - python: '2.7'
-      env: SCENARIO=legacy ANSIBLE_VERSION='ansible>=2.2.0,<2.3.0'  # 2.2.x security only
-    - python: '2.7'
-      env: SCENARIO=legacy ANSIBLE_VERSION='ansible>=2.3.0,<2.4.0'  # 2.3.x bugs and security
-    - python: '2.7'
-      env: ANSIBLE_VERSION='ansible>=2.4.0,<2.5.0'  # 2.4.x bugs and security
-    - python: '2.7'
-      env: ANSIBLE_VERSION='--pre ansible'  # Pre-releases
-    - python: '2.7'
-      env: ANSIBLE_VERSION='git+https://github.com/ansible/ansible.git@devel'  # DEVEL
-    - python: '3.5'
-      env: SCENARIO=python3 PIP='pip3'
+    - env: SCENARIO=legacy ANSIBLE_VERSION='<2.4.0'  # 2.3.x bugs and security
+    - env: ANSIBLE_VERSION='<2.5.0'  # 2.4.x bugs and security
+    - env: ANSIBLE_VERSION='<2.6.0'  # 2.5.x bugs and security
+    - env: ANSIBLE_VERSION=''  # Pre-releases
 
   allow_failures:
-    - python: '2.7'
-      env: ANSIBLE_VERSION='git+https://github.com/ansible/ansible.git@devel'  # DEVEL
+    - env: ANSIBLE_VERSION=''  # Pre-releases
 
 services:
   - docker
@@ -40,10 +29,12 @@ before_install:
   - sudo apt-get -qq install --only-upgrade docker-ce -y
 
 install:
-  - $PIP install $ANSIBLE_VERSION molecule docker-py
+  - if [ "$ANSIBLE_VERSION" ]; then pip install --pre ansible${ANSIBLE_VERSION};
+    else pip install ansible; fi
+  - pip install molecule docker-py
+  - ansible --version
 
 script:
-  - ansible --version
   - molecule test --scenario-name $SCENARIO
 
 notifications:

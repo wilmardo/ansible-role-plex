@@ -30,8 +30,9 @@ provisioner:
       callback_whitelist: profile_tasks
   playbooks:
     create: ../default/create.yml
-    destroy: ../default/destroy.yml
+    prepare: ../default/prepare.yml
     converge: ../default/playbook.yml
+    destroy: ../default/destroy.yml
   lint:
     name: ansible-lint
     options:
