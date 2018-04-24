@@ -39,9 +39,6 @@ platforms:
   - name: Ubuntu1404
     image: lansible/ubuntu:14.04
 
-  - name: Ubuntu1204
-    image: lansible/ubuntu:12.04
-
 provisioner:
   name: ansible
   options:
