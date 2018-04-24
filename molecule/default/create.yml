@@ -20,14 +20,13 @@
       docker_container:
         name: "{{ item.name }}"
         hostname: "{{ item.name }}"
-        image: "{{ item.image }}"
+        image: "molecule_local/{{ item.image }}"
         state: started
         recreate: false
         log_driver: json-file
         command: "{{ item.command | default('bash -c \"while true; do sleep 10000; done\"') }}"
         privileged: "{{ item.privileged | default(omit) }}"
         volumes: "{{ item.volumes | default(omit) }}"
-        tmpfs: "{{ item.tmpfs | default(omit) }}"
         capabilities: "{{ item.capabilities | default(omit) }}"
         exposed_ports: "{{ item.exposed_ports | default(omit) }}"
         published_ports: "{{ item.published_ports | default(omit) }}"
