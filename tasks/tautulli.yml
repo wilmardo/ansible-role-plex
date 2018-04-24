@@ -45,7 +45,7 @@
         dest: /lib/systemd/system/tautulli.service
         owner: root
         group: root
-        mode: 0775
+        mode: 0644
 
     - name: Autostart Tautulli and restart service
       systemd:
