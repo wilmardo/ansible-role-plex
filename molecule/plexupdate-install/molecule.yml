@@ -13,16 +13,41 @@ lint:
     config-file: molecule/_rules/.yamllint
 
 platforms:
+  - name: Centos7
+    image: lansible/centos:7
+
   - name: Centos6
     image: centos:6
     ulimits:
       - memlock:60397977:60397977
 
+  - name: Debian9
+    image: lansible/debian:9
+
+  - name: Fedora27
+    image: lansible/fedora:27
+
+  - name: Fedora26
+    image: lansible/fedora:26
+
+  - name: Fedora25
+    image: lansible/fedora:25
+
+  - name: Ubuntu1604
+    image: lansible/ubuntu:16.04
+
   - name: Ubuntu1404
     image: lansible/ubuntu:14.04
 
+  - name: Ubuntu1204
+    image: lansible/ubuntu:12.04
+
 provisioner:
   name: ansible
+  inventory:
+    group_vars:
+      all:
+        plexupdate_install: true
   options:
     v: true
   config_options:
@@ -39,7 +64,7 @@ provisioner:
       c: molecule/_rules/.ansible-lint
 
 scenario:
-  name: legacy
+  name: plexupdate-install
 
 verifier:
   name: goss

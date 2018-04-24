@@ -16,6 +16,11 @@ platforms:
   - name: Centos7
     image: lansible/centos:7
 
+  - name: Centos6
+    image: centos:6
+    ulimits:
+      - memlock:60397977:60397977
+
   - name: Debian9
     image: lansible/debian:9
 
@@ -25,8 +30,17 @@ platforms:
   - name: Fedora26
     image: lansible/fedora:26
 
+  - name: Fedora25
+    image: lansible/fedora:25
+
   - name: Ubuntu1604
     image: lansible/ubuntu:16.04
+
+  - name: Ubuntu1404
+    image: lansible/ubuntu:14.04
+
+  - name: Ubuntu1204
+    image: lansible/ubuntu:12.04
 
 provisioner:
   name: ansible

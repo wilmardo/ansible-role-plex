@@ -44,3 +44,16 @@
   changed_when: "'already installed' not in plexupdate_output.stdout"
   register: plexupdate_output
   notify: restart plex
+
+- name: Reload systemD daemon
+  systemd:
+    daemon_reload: true
+  when: (ansible_distribution == 'CentOS' and ansible_distribution_major_version == "7") or
+        (ansible_distribution == 'Ubuntu' and ansible_distribution_version|int >= 15.04) or
+        (ansible_distribution == 'Debian' and ansible_distribution_major_version|int >= 8)
+
+- name: Autostart Plex
+  service:
+    name: plexmediaserver
+    enabled: true
+  notify: restart plex

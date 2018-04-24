@@ -1,5 +1,6 @@
 ---
 - include: plex.yml
+  when: not plexupdate_install
 
 - include: tautulli.yml
   when: tautulli_install
