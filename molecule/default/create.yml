@@ -20,7 +20,7 @@
       docker_container:
         name: "{{ item.name }}"
         hostname: "{{ item.name }}"
-        image: "molecule_local/{{ item.image }}"
+        image: "{{ item.image }}"
         state: started
         recreate: false
         log_driver: json-file
