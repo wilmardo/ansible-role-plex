@@ -47,7 +47,7 @@
         group: root
         mode: 0644
 
-    - name: Autostart Tautulli and restart service
+    - name: Autostart Tautulli
       systemd:
         name: tautulli
         enabled: true

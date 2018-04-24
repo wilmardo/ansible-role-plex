@@ -1,6 +1,8 @@
 ---
 dependency:
   name: galaxy
+  options:
+    role-file: requirements.yml
 
 driver:
   name: docker
@@ -26,7 +28,7 @@ provisioner:
 
 scenario:
   name: python3
-#verifier:
-#  name: testinfra
-#  lint:
-#    name: flake8
+
+verifier:
+  name: goss
+  enabled: false

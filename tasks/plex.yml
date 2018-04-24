@@ -50,7 +50,7 @@
 
   when: ansible_os_family == "Debian"
 
-- name: Autostart Plex and start service
+- name: Autostart Plex
   service:
     name: plexmediaserver
     enabled: true
