@@ -9,6 +9,8 @@ driver:
 
 lint:
   name: yamllint
+  options:
+    config-file: molecule/_rules/.yamllint
 
 platforms:
   - name: Centos6
@@ -21,10 +23,19 @@ platforms:
 
 provisioner:
   name: ansible
+  config_options:
+    defaults:
+      callback_whitelist: profile_tasks
   options:
     v: true
+  playbooks:
+    create: ../default/create.yml
+    destroy: ../default/destroy.yml
+    converge: ../default/playbook.yml
   lint:
     name: ansible-lint
+    options:
+      c: molecule/_rules/.ansible-lint
 
 scenario:
   name: legacy
