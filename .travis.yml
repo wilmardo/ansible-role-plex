@@ -8,43 +8,29 @@ cache:
 env:
   global:
     - fast_finish: true
-    - MAKEFLAGS="-j 2"
-    - PIP='pip'
-    - ANSIBLE_VERSION='ansible'
-    - SCENARIO=default
 
 matrix:
   include:
-    - python: '2.7'
-      env: SCENARIO=legacy ANSIBLE_VERSION='ansible>=2.2.0,<2.3.0'  # 2.2.x security only
-    - python: '2.7'
-      env: SCENARIO=legacy ANSIBLE_VERSION='ansible>=2.3.0,<2.4.0'  # 2.3.x bugs and security
-    - python: '2.7'
-      env: ANSIBLE_VERSION='ansible>=2.4.0,<2.5.0'  # 2.4.x bugs and security
-    - python: '2.7'
-      env: ANSIBLE_VERSION='--pre ansible'  # Pre-releases
-    - python: '2.7'
-      env: ANSIBLE_VERSION='git+https://github.com/ansible/ansible.git@devel'  # DEVEL
-    - python: '3.5'
-      env: SCENARIO=python3 PIP='pip3'
-
-  allow_failures:
-    - python: '2.7'
-      env: ANSIBLE_VERSION='git+https://github.com/ansible/ansible.git@devel'  # DEVEL
+    - env: TAG=latest
+#    - env: TAG=2.3  # 2.3.x bugs and security
+#    - env: TAG=2.4  # 2.4.x bugs and security
+#    - env: TAG=2.5  # 2.4.x bugs and security
+#    - env: TAG:2.6  # Development
 
 services:
   - docker
 
-before_install:
-  - sudo apt-get -qq update
-  - sudo apt-get -qq install --only-upgrade docker-ce -y
-
-install:
-  - $PIP install $ANSIBLE_VERSION molecule docker-py
+addons:
+  apt:
+    sources:
+      - docker-trusty
+    packages:
+      - docker-ce
 
 script:
-  - ansible --version
-  - molecule test --scenario-name $SCENARIO
+  - sudo service docker stop
+  - sudo docker -H tcp://127.0.0.1:2375 -d
+  - docker run --net=host -t -v $(pwd):/data/$(basename ~+) -w /data/$(basename ~+) lansible/ansible-dev-container:$TAG converge
 
 notifications:
 #  webhooks: https://galaxy.ansible.com/api/v1/notifications/
