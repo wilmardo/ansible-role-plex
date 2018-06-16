@@ -1,69 +1,55 @@
 ---
 dependency:
   name: galaxy
+  options:
+    role-file: requirements.yml
 
 driver:
   name: docker
 
 lint:
   name: yamllint
+  options:
+    config-file: ${DEV_MOLECULE_RULES}/yaml-lint.yml
 
 platforms:
   - name: Centos7
-    image: wilmardo/docker-centos-ansible:7
-    capabilities:
-      - SYS_ADMIN
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    tmpfs:
-      - /run
+    image: lansible/centos:7
+
+  - name: Centos6
+    image: centos:6
+    ulimits:
+      - memlock:60397977:60397977
 
   - name: Debian9
-    image: wilmardo/docker-debian-ansible:9
-    capabilities:
-      - SYS_ADMIN
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    tmpfs:
-      - /run
-      - /run/lock
+    image: lansible/debian:8
 
   - name: Fedora27
-    image: wilmardo/docker-fedora-ansible:27
-    capabilities:
-      - SYS_ADMIN
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    tmpfs:
-      - /run
-      - /tmp
+    image: lansible/fedora:27
 
   - name: Fedora26
-    image: wilmardo/docker-fedora-ansible:26
-    capabilities:
-      - SYS_ADMIN
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    tmpfs:
-      - /run
-      - /tmp
+    image: lansible/fedora:26
+
+  - name: Fedora25
+    image: lansible/fedora:25
 
   - name: Ubuntu1604
-    image: wilmardo/docker-ubuntu-ansible:16.04
+    image: lansible/ubuntu:16.04
 
-  - name: Ubuntu1404
-    image: wilmardo/docker-ubuntu-ansible:14.04
+#  - name: Ubuntu1404
+#    image: lansible/ubuntu:14.04
 
 provisioner:
   name: ansible
   options:
     v: true
+  config_options:
+    defaults:
+      callback_whitelist: profile_tasks
   lint:
     name: ansible-lint
+    options:
+      c: ${DEV_MOLECULE_RULES}/ansible-lint.yml
 
 scenario:
   name: default
-
-verifier:
-  name: goss
-  enabled: false
