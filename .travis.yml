@@ -28,8 +28,8 @@ addons:
       - docker-ce
 
 script:
-  - sudo service docker stop
-  - sudo docker -H tcp://127.0.0.1:2375 -d
+  - echo DOCKER_OPTS="-H tcp://127.0.0.1:4243" >> /etc/default/docker
+  - sudo service docker restart
   - docker run --net=host -t -v $(pwd):/data/$(basename ~+) -w /data/$(basename ~+) lansible/ansible-dev-container:$TAG converge
 
 notifications:
