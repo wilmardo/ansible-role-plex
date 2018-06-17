@@ -30,7 +30,7 @@ addons:
 script:
   - echo DOCKER_OPTS="-H tcp://127.0.0.1:4243" >> /etc/default/docker
   - sudo service docker restart
-  - docker run --net=host -t -v $(pwd):/data/$(basename ~+) -w /data/$(basename ~+) lansible/ansible-dev-container:$TAG converge
+  - docker run --net=host -it -v $(pwd):/data/$(basename ~+) -w /data/$(basename ~+) lansible/ansible-dev-container:$TAG molecule converge
 
 notifications:
 #  webhooks: https://galaxy.ansible.com/api/v1/notifications/
