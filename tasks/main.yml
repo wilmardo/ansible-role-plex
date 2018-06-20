@@ -1,10 +1,14 @@
 ---
-- include: plex.yml
+- include_tasks: plex.yml
   when: (ansible_os_family == 'RedHat') or
         (ansible_os_family == 'Debian')
 
-- include: tautulli.yml
+- name: Include wilmardo.tautulli
+  include_role:
+    name: tautulli
   when: tautulli_install
 
-- include: plexupdate.yml
+- name: Include wilmardo.plexupdate
+  include_role:
+    name: plexupdate
   when: plexupdate_install

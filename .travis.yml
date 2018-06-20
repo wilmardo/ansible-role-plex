@@ -11,11 +11,12 @@ env:
 
 matrix:
   include:
-    - env: TAG=latest
-#    - env: TAG=2.3  # 2.3.x bugs and security
-#    - env: TAG=2.4  # 2.4.x bugs and security
-#    - env: TAG=2.5  # 2.4.x bugs and security
-#    - env: TAG:2.6  # Development
+    - env: TAG=2.4  # 2.4.x bugs and security
+    - env: TAG=2.5  # 2.4.x bugs and security
+    - env: TAG=2.6  # Development
+
+  allow_failures:
+    - env: TAG=2.6  # Development
 
 services:
   - docker
@@ -27,13 +28,15 @@ addons:
     packages:
       - docker-ce
 
+before_script:
+  - sudo service docker stop
+  - sudo dockerd -H unix:///var/run/docker.sock -H tcp://127.0.0.1:2375 </dev/null &>/dev/null &
+
 script:
-  - echo DOCKER_OPTS="-H tcp://127.0.0.1:4243" >> /etc/default/docker
-  - sudo service docker restart
-  - docker run --net=host -it -v $(pwd):/data/$(basename ~+) -w /data/$(basename ~+) lansible/ansible-dev-container:$TAG molecule converge
+  - docker run --net=host -it -v $(pwd):/data/$(basename ~+) -w /data/$(basename ~+) lansible/ansible-dev-container:$TAG molecule --debug converge
 
 notifications:
-#  webhooks: https://galaxy.ansible.com/api/v1/notifications/
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/
   email:
     on_failure: change
     on_success: never

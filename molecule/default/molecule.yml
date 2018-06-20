@@ -13,30 +13,28 @@ lint:
     config-file: ${DEV_MOLECULE_RULES}/yaml-lint.yml
 
 platforms:
-  - name: Centos7
+  - name: Plex-Centos7
     image: lansible/centos:7
 
-  - name: Centos6
-    image: centos:6
-    ulimits:
-      - memlock:60397977:60397977
+#  - name: Plex-Centos6
+#    image: lansible/centos:6
 
-  - name: Debian9
+  - name: Plex-Debian9
     image: lansible/debian:8
 
-  - name: Fedora27
+  - name: Plex-Fedora27
     image: lansible/fedora:27
 
-  - name: Fedora26
+  - name: Plex-Fedora26
     image: lansible/fedora:26
 
-  - name: Fedora25
+  - name: Plex-Fedora25
     image: lansible/fedora:25
 
-  - name: Ubuntu1604
+  - name: Plex-Ubuntu1604
     image: lansible/ubuntu:16.04
 
-#  - name: Ubuntu1404
+#  - name: Plex-Ubuntu1404
 #    image: lansible/ubuntu:14.04
 
 provisioner:
