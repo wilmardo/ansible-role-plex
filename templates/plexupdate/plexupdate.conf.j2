@@ -1,8 +1,0 @@
-AUTOINSTALL={{ plexupdate_autoinstall | ternary('yes','no') }}
-AUTOUPDATE={{ plexupdate_autoupdate | ternary('yes','no') }}
-PUBLIC={{ plexupdate_public | ternary('yes','no') }}
-AUTODELETE=yes
-PLEXSERVER=127.0.0.1
-PLEXPORT=32400
-NOTIFY={{ plexupdate_notify | ternary('yes','no') }}
-DEBIAN_INSTALL="dpkg --force-confnew -i"

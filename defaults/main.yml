@@ -15,7 +15,7 @@ tautulli_config_location: /etc/tautulli-config.ini
 tautulli_data_location: "{{ tautulli_install_location }}/data"
 
 # If plexupdate will get installed
-plexupdate_install: true
+plexupdate_install: false
 # Version of Tautulli to install, gets passed to git module
 plexupdate_version: master
 # Plexupdate install location

@@ -35,4 +35,6 @@ galaxy_info:
     - plexupdate
     - plexpy
 
-dependencies: []
+#dependencies:
+#  - wilmardo.plexupdate
+#  - wilmardo.tautulli
