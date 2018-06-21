@@ -15,9 +15,6 @@ matrix:
     - env: TAG=2.5  # 2.4.x bugs and security
     - env: TAG=2.6  # Development
 
-  allow_failures:
-    - env: TAG=2.6  # Development
-
 services:
   - docker
 
