@@ -13,26 +13,26 @@ lint:
     config-file: ${DEV_MOLECULE_RULES}/yaml-lint.yml
 
 platforms:
-  - name: Plex-Centos7
-    image: lansible/centos:7
+#  - name: Plex-Centos7
+#    image: lansible/centos:7
 
 #  - name: Plex-Centos6
 #    image: lansible/centos:6
 
-  - name: Plex-Debian9
-    image: lansible/debian:8
-
-  - name: Plex-Fedora27
-    image: lansible/fedora:27
-
-  - name: Plex-Fedora26
-    image: lansible/fedora:26
+#  - name: Plex-Debian9
+#    image: lansible/debian:8
+#
+#  - name: Plex-Fedora27
+#    image: lansible/fedora:27
+#
+#  - name: Plex-Fedora26
+#    image: lansible/fedora:26
 
   - name: Plex-Fedora25
     image: lansible/fedora:25
 
-  - name: Plex-Ubuntu1604
-    image: lansible/ubuntu:16.04
+#  - name: Plex-Ubuntu1604
+#    image: lansible/ubuntu:16.04
 
 #  - name: Plex-Ubuntu1404
 #    image: lansible/ubuntu:14.04
