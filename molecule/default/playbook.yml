@@ -16,6 +16,7 @@
     - name: Wait for Tautulli to succesfully restart
       wait_for:
         port: 8181
+      when: tautulli_install
 
     - name: Test Tautulli webinterface
       uri:
