@@ -13,15 +13,17 @@ galaxy_info:
       versions:
         - 7
 #        - 6
+
 #    - name: Fedora
 #      versions:
 #        - 27
 #        - 26
+#        - 25
 
     - name: Ubuntu
       versions:
-        - trusty
         - xenial
+#        - trusty
 
     - name: Debian
       versions:
