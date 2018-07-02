@@ -34,7 +34,11 @@ galaxy_info:
     - tautulli
     - plexupdate
     - plexpy
+    - system
+    - apb
 
-dependencies:
-  - wilmardo.plexupdate
-  - wilmardo.tautulli
+#dependencies:
+#  - wilmardo.plexupdate
+#  - wilmardo.tautulli
+
+dependencies: []
