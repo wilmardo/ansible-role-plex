@@ -12,11 +12,11 @@ galaxy_info:
     - name: EL
       versions:
         - 7
-        - 6
-    - name: Fedora
-      versions:
-        - 27
-        - 26
+#        - 6
+#    - name: Fedora
+#      versions:
+#        - 27
+#        - 26
 
     - name: Ubuntu
       versions:
@@ -35,6 +35,6 @@ galaxy_info:
     - plexupdate
     - plexpy
 
-#dependencies:
-#  - wilmardo.plexupdate
-#  - wilmardo.tautulli
+dependencies:
+  - wilmardo.plexupdate
+  - wilmardo.tautulli
