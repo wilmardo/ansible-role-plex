@@ -1,0 +1,42 @@
+---
+- name: Prepare
+  hosts: all
+  gather_facts: false
+#  vars:
+#    packages: "ca-certificates curl sudo"
+
+  pre_tasks:
+    - name: Test if Python is installed
+      raw: python -c 'import sys; print(".".join(map(str, sys.version_info[:3])))' # gets python version number
+      register: python_version
+      changed_when: false
+      failed_when: false
+
+    - name: Install Python when not installed
+      raw: |
+        if [ -x "$(command -v apt-get)" ]
+        then
+          apt-get update && apt-get install -y python
+        elif [ -x "$(command -v yum)" ]
+        then
+          yum install -y python
+        elif [ -x "$(command -v zypper)" ]
+        then
+          zypper --non-interactive --gpg-auto-import-keys refresh && zypper --non-interactive install -y python python-xml
+        elif [ -x "$(command -v apk)" ]
+        then
+          apk update && apk add python
+        elif [ -x "$(command -v pacman)" ]
+        then
+          pacman -Syu --noconfirm python2
+        elif [ -x "$(command -v dnf)" ]
+        then
+          dnf --assumeyes install python python-devel python2-dnf
+        elif [ -x "$(command -v emerge)" ]
+        then
+          emerge --ask n =dev-lang/python-2\* gentoolkit
+        fi
+      when: "'not found' in python_version.stderr"
+
+    - name: Gathering Facts
+      setup: #aka gather_facts

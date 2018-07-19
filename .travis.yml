@@ -11,9 +11,10 @@ env:
 
 matrix:
   include:
-    - env: TAG=2.4  # 2.4.x bugs and security
-    - env: TAG=2.5  # 2.4.x bugs and security
+#    - env: TAG=2.4  # 2.4.x bugs and security
+#    - env: TAG=2.5  # 2.4.x bugs and security
 #    - env: TAG=2.6  # Development
+    - env: TAG=test  # Development
 
 services:
   - docker
@@ -25,9 +26,15 @@ addons:
     packages:
       - docker-ce
 
-before_script:
-  - sudo service docker stop
-  - sudo dockerd -H unix:///var/run/docker.sock -H tcp://127.0.0.1:2375 </dev/null &>/dev/null &
+before_install:
+  - sudo apt-get -qq update && sudo apt-get remove -y lxd
+
+install:
+  - sudo apt-get -y install snapd python3.5
+  - sudo snap install lxd
+  - sudo sudo bash -c 'echo PATH=/snap/bin:$PATH >> /etc/environment'
+  - while [ ! -S /var/snap/lxd/common/lxd/unix.socket ]; do echo "Waiting for LXD socket...";sleep 0.2;done;
+  - curl https://raw.githubusercontent.com/LANsible/ansible-dev-container/lxd/setup-lxd.sh | sudo bash -s -- password
 
 script:
   - docker run --net=host -it -v $(pwd):/data/$(basename ~+) -w /data/$(basename ~+) lansible/ansible-dev-container:$TAG molecule converge

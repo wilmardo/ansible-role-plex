@@ -5,7 +5,7 @@ dependency:
     role-file: requirements.yml
 
 driver:
-  name: docker
+  name: lxd
 
 lint:
   name: yamllint
@@ -13,32 +13,32 @@ lint:
     config-file: ${DEV_MOLECULE_RULES}/yaml-lint.yml
 
 platforms:
-  - name: Plex-Centos7
-    image: lansible/centos:7
+  - name: Plex-CentOS7
+    alias: centos/7/amd64
 
-#  - name: Plex-Centos6
-#    image: lansible/centos:6
+  - name: Plex-CentOS6
+    alias: centos/6/amd64
 
   - name: Plex-Debian9
-    image: lansible/debian:9
+    alias: debian/stretch/amd64
 
   - name: Plex-Debian8
-    image: lansible/debian:8
+    alias: debian/jessie/amd64
 
-#  - name: Plex-Fedora27
-#    image: lansible/fedora:27
-#
-#  - name: Plex-Fedora26
-#    image: lansible/fedora:26
-#
-#  - name: Plex-Fedora25
-#    image: lansible/fedora:25
+  - name: Plex-Fedora27
+    alias: fedora/27/amd64
+
+  - name: Plex-Fedora26
+    alias: fedora/26/amd64
+
+  - name: Plex-Ubuntu1804
+    alias: ubuntu/bionic/amd64
 
   - name: Plex-Ubuntu1604
-    image: lansible/ubuntu:16.04
+    alias: ubuntu/xenial/amd64
 
-#  - name: Plex-Ubuntu1404
-#    image: lansible/ubuntu:14.04
+  - name: Plex-Ubuntu1404
+    alias: ubuntu/trusty/amd64
 
 provisioner:
   name: ansible
