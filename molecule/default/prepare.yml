@@ -7,8 +7,8 @@
 
   pre_tasks:
     - name: Test if Python is installed
-      raw: python -c 'import sys; print(".".join(map(str, sys.version_info[:3])))' # gets python version number
-      register: python_installed
+      raw: python -c 'import sys; print(".".join(map(str, sys.version_info[:3])))' # gets Python version
+      register: python_version
       changed_when: "'not found' in python_version.stderr"
       failed_when: false
 
