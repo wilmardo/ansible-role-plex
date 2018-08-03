@@ -2,8 +2,8 @@
 - name: Prepare
   hosts: all
   gather_facts: false
-#  vars:
-#    packages: "ca-certificates curl sudo"
+  vars:
+    packages: "ca-certificates curl sudo"
 
   pre_tasks:
     - name: Test if Python is installed
@@ -16,10 +16,10 @@
       raw: |
         if [ -x "$(command -v apt-get)" ]
         then
-          apt-get update && apt-get install -y python
+          apt-get update && apt-get install -y python python-setuptools
         elif [ -x "$(command -v yum)" ]
         then
-          yum install -y python
+          yum install -y python python-setuptools
         elif [ -x "$(command -v zypper)" ]
         then
           zypper --non-interactive --gpg-auto-import-keys refresh && zypper --non-interactive install -y python python-xml
@@ -31,7 +31,7 @@
           pacman -Syu --noconfirm python2
         elif [ -x "$(command -v dnf)" ]
         then
-          dnf --assumeyes install python python-devel python2-dnf
+          dnf --assumeyes install python python-devel python2-dnf python-setuptools
         elif [ -x "$(command -v emerge)" ]
         then
           emerge --ask n =dev-lang/python-2\* gentoolkit
