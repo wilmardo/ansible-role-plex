@@ -3,11 +3,14 @@
   hosts: localhost
   connection: local
   gather_facts: false
-  no_log: "{{ not lookup('env', 'MOLECULE_DEBUG') | bool }}"
+  no_log: "{{ not (lookup('env', 'MOLECULE_DEBUG') | bool or molecule_yml.provisioner.log|default(false) | bool) }}"
   tasks:
     - name: Create molecule instance(s)
       lxd_container:
-        url: "{{ item.url | default('unix:/var/lib/lxd/unix.socket')}}"
+        url: "{{ item.url | default(omit)}}"
+        cert_file: "{{ item.cert_file | default(omit) }}"
+        key_file: "{{ item.key_file | default(omit) }}"
+        trust_password: "{{ item.trust_password | default(omit) }}"
         name: "{{ item.name }}"
         state: started
         source:
@@ -16,7 +19,7 @@
           server: "{{ item.server | default('https://images.linuxcontainers.org') }}"
           protocol: lxd
           alias: "{{ item.alias }}"
-        profiles: ["default"]
+        profiles: "{{ item.profiles | default(omit)}}"
         wait_for_ipv4_addresses: true
         timeout: 600
       with_items: "{{ molecule_yml.platforms }}"
