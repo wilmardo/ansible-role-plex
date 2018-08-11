@@ -7,8 +7,7 @@
   tasks:
     - name: Create molecule instance(s)
       lxd_container:
-        url: https://127.0.0.1:8443
-        trust_password: password
+        url: "{{ item.url | default('unix:/var/lib/lxd/unix.socket')}}"
         name: "{{ item.name }}"
         state: started
         source:
