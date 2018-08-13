@@ -1,5 +1,6 @@
 ---
 galaxy_info:
+  role_name: plex
   author: wilmardo
   description: |
     Role to install Plex Media Server, Tautulli (former PlexPy) and Plexupdate in one go!
@@ -39,7 +40,7 @@ galaxy_info:
     - system
     - apb
 
-#dependencies:
+# dependencies:
 #  - wilmardo.plexupdate
 #  - wilmardo.tautulli
 
