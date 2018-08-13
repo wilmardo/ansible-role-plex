@@ -31,8 +31,9 @@ platforms:
   - name: Plex-Fedora26
     alias: fedora/26/amd64
 
-  - name: Plex-Ubuntu1804
-    alias: ubuntu/bionic/amd64
+# TODO: Not yet released
+#  - name: Plex-Ubuntu1804
+#    alias: ubuntu/bionic/amd64
 
   - name: Plex-Ubuntu1604
     alias: ubuntu/xenial/amd64
