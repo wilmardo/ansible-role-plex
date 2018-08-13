@@ -14,7 +14,7 @@ matrix:
     - env: TAG=2.4    # 2.4.x security fixes
     - env: TAG=2.5    # 2.5.x bugs and security
     - env: TAG=2.6    # 2.6.x bugs and security
-    - env: TAG=devel  # Development
+    - env: TAG=devel  # Devel branch source install
 
 services:
   - docker
@@ -37,9 +37,11 @@ install:
   - sudo lxd init --auto
 
 script:
-  - docker run --userns=host -it -v $(pwd):/data/$(basename ~+) -v /var/snap/lxd/common/lxd/unix.socket:/var/lib/lxd/unix.socket -w /data/$(basename ~+) lansible/ansible-dev-container:$TAG molecule lint
-  - docker run --userns=host -it -v $(pwd):/data/$(basename ~+) -v /var/snap/lxd/common/lxd/unix.socket:/var/lib/lxd/unix.socket -w /data/$(basename ~+) lansible/ansible-dev-container:$TAG molecule converge
-  - docker run --userns=host -it -v $(pwd):/data/$(basename ~+) -v /var/snap/lxd/common/lxd/unix.socket:/var/lib/lxd/unix.socket -w /data/$(basename ~+) lansible/ansible-dev-container:$TAG molecule destroy
+  - |
+    docker run --userns=host -it -v $(pwd):/data/$(basename ~+) \
+    -v /var/snap/lxd/common/lxd/unix.socket:/var/lib/lxd/unix.socket \
+    -w /data/$(basename ~+) \
+    lansible/ansible-dev-container:$TAG molecule test
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
