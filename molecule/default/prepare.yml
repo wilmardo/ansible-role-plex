@@ -19,7 +19,7 @@
           yum install -y python
         elif [ -x "$(command -v zypper)" ]
         then
-          zypper --non-interactive --gpg-auto-import-keys refresh && zypper --non-interactive install -y python python-xml
+          zypper -n --gpg-auto-import-keys refresh && zypper -n install -y python python-xml
         elif [ -x "$(command -v apk)" ]
         then
           apk update && apk add python
@@ -36,7 +36,7 @@
       when: "'not found' in python_version.stderr"
 
     - name: Gathering Facts
-      setup: #aka gather_facts
+      setup: # aka gather_facts
 
     - name: Install equery on Gentoo based containers when not available
       raw: test -e /usr/bin/equery || emerge --ask n gentoolkit
@@ -44,7 +44,7 @@
       changed_when: equery_status.stdout != ''
       when: ansible_os_family == 'Gentoo'
 
-    - name: Install some basic packages because LXD containers are bare
+    - name: Install some basic packages because LXC containers are bare
       package:
         name:
           - ca-certificates
