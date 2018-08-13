@@ -37,7 +37,8 @@ install:
   - sudo lxd init --auto
 
 script:
-  - docker run --userns=host -it -v $(pwd):/data/$(basename ~+) -v /var/snap/lxd/common/lxd/unix.socket:/var/lib/lxd/unix.socket -w /data/$(basename ~+) lansible/ansible-dev-container:$TAG molecule test
+  - docker run --userns=host -it -v $(pwd):/data/$(basename ~+) -v /var/snap/lxd/common/lxd/unix.socket:/var/lib/lxd/unix.socket -w /data/$(basename ~+) lansible/ansible-dev-container:$TAG molecule converge
+  - docker run --userns=host -it -v $(pwd):/data/$(basename ~+) -v /var/snap/lxd/common/lxd/unix.socket:/var/lib/lxd/unix.socket -w /data/$(basename ~+) lansible/ansible-dev-container:$TAG molecule destroy
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
