@@ -18,6 +18,8 @@ platforms:
 
   - name: Plex-CentOS6
     alias: centos/6/amd64
+    config:
+      limits.kernel.memlock: 60397977:60397977
 
   - name: Plex-Debian9
     alias: debian/stretch/amd64
@@ -27,9 +29,13 @@ platforms:
 
   - name: Plex-Fedora27
     alias: fedora/27/amd64
+    config:
+      limits.kernel.memlock: 60397977:60397977
 
   - name: Plex-Fedora26
     alias: fedora/26/amd64
+    config:
+      limits.kernel.memlock: 60397977:60397977
 
 # TODO: Not yet released
 #  - name: Plex-Ubuntu1804
