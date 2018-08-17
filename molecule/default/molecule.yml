@@ -22,8 +22,8 @@ platforms:
   - name: Plex-Debian9
     alias: debian/stretch/amd64
 
-  - name: Plex-Debian8
-    alias: debian/jessie/amd64
+#  - name: Plex-Debian8
+#    alias: debian/jessie/amd64
 
   - name: Plex-Fedora27
     alias: fedora/27/amd64
