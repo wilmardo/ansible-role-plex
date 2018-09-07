@@ -41,6 +41,8 @@ script:
     docker run --userns=host -it -v $(pwd):/data/$(basename ~+) \
     -v /var/snap/lxd/common/lxd/unix.socket:/var/lib/lxd/unix.socket \
     -w /data/$(basename ~+) \
+    -e LOCAL_USER_ID=`id -u $USER` \
+    -e LOCAL_GROUP_ID=`getent group lxd | cut -d: -f3` \
     lansible/ansible-dev-container:$TAG molecule test
 
 notifications:
