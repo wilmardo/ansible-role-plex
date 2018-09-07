@@ -7,7 +7,7 @@ galaxy_info:
 
   license: BSD-3-Clause-Clear
 
-  min_ansible_version: 2.2
+  min_ansible_version: 2.4
 
   platforms:
     - name: EL
