@@ -5,10 +5,6 @@
     - role: ansible-role-plex
 
   post_tasks:
-    - name: Wait for Plex to succesfully restart
-      wait_for:
-        port: 32400
-
     - name: Test Plex webinterface
       uri:
         url: "http://{{ inventory_hostname }}:32400/web"

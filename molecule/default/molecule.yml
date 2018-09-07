@@ -57,5 +57,12 @@ provisioner:
     options:
       c: ${DEV_MOLECULE_RULES}/ansible-lint.yml
 
+verifier:
+  name: goss
+  lint:
+    name: yamllint
+    options:
+      config-file: ${DEV_MOLECULE_RULES}/yaml-lint.yml
+
 scenario:
   name: default

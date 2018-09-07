@@ -1,0 +1,13 @@
+---
+service:
+  plexmediaserver:
+    enabled: true
+    running: true
+
+port:
+  tcp:32400:
+    listening: true
+
+http:
+  http://127.0.0.1:32400/web:
+    status: 200
