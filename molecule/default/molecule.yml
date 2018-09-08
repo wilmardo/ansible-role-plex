@@ -14,26 +14,28 @@ lint:
 
 platforms:
   - name: Plex-CentOS7
-    alias: centos/7/amd64
+    source:
+      alias: centos/7/amd64
 
   - name: Plex-CentOS6
-    alias: centos/6/amd64
+    source:
+      alias: centos/6/amd64
     config:
       limits.kernel.memlock: 60397977:60397977
 
   - name: Plex-Debian9
-    alias: debian/stretch/amd64
-
-#  - name: Plex-Debian8
-#    alias: debian/jessie/amd64
+    source:
+      alias: debian/stretch/amd64
 
   - name: Plex-Fedora27
-    alias: fedora/27/amd64
+    source:
+      alias: fedora/27/amd64
     config:
       limits.kernel.memlock: 60397977:60397977
 
   - name: Plex-Fedora26
-    alias: fedora/26/amd64
+    source:
+      alias: fedora/26/amd64
     config:
       limits.kernel.memlock: 60397977:60397977
 
@@ -42,10 +44,12 @@ platforms:
 #    alias: ubuntu/bionic/amd64
 
   - name: Plex-Ubuntu1604
-    alias: ubuntu/xenial/amd64
+    source:
+      alias: ubuntu/xenial/amd64
 
   - name: Plex-Ubuntu1404
-    alias: ubuntu/trusty/amd64
+    source:
+      alias: ubuntu/trusty/amd64
 
 provisioner:
   name: ansible
