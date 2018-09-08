@@ -27,17 +27,18 @@ platforms:
     source:
       alias: debian/stretch/amd64
 
-  - name: Plex-Fedora27
-    source:
-      alias: fedora/27/amd64
-    config:
-      limits.kernel.memlock: 60397977:60397977
-
-  - name: Plex-Fedora26
-    source:
-      alias: fedora/26/amd64
-    config:
-      limits.kernel.memlock: 60397977:60397977
+# TODO: Test once in a while https://github.com/systemd/systemd/pull/8447
+#  - name: Plex-Fedora27
+#    source:
+#      alias: fedora/27/amd64
+#    config:
+#      limits.kernel.memlock: 60397977:60397977
+#
+#  - name: Plex-Fedora26
+#    source:
+#      alias: fedora/26/amd64
+#    config:
+#      limits.kernel.memlock: 60397977:60397977
 
 # TODO: Not yet released
 #  - name: Plex-Ubuntu1804
