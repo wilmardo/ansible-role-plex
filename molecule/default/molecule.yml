@@ -21,7 +21,7 @@ platforms:
     source:
       alias: centos/6/amd64
     config:
-      limits.kernel.memlock: 60397977:60397977
+      limits.kernel.memlock: "60397977:60397977"
 
   - name: Plex-Debian9
     source:

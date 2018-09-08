@@ -13,22 +13,20 @@ galaxy_info:
     - name: EL
       versions:
         - 7
-#        - 6
+        - 6
 
 #    - name: Fedora
 #      versions:
 #        - 27
 #        - 26
-#        - 25
 
     - name: Ubuntu
       versions:
         - xenial
-#        - trusty
+        - trusty
 
     - name: Debian
       versions:
-        - jessie
         - stretch
 
   galaxy_tags:
@@ -39,9 +37,5 @@ galaxy_info:
     - plexpy
     - system
     - apb
-
-# dependencies:
-#  - wilmardo.plexupdate
-#  - wilmardo.tautulli
 
 dependencies: []
