@@ -33,7 +33,7 @@ script:
     -w /data/$(basename ~+) \
     -e LOCAL_USER_ID=`id -u $USER` \
     -e LOCAL_GROUP_ID=`getent group lxd | cut -d: -f3` \
-    lansible/ansible-dev-container:$TAG molecule test
+    lansible/ansible-dev-container:$TAG molecule --debug test
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
