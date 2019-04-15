@@ -1,9 +1,6 @@
 ---
-dist: trusty
-language: python
-sudo: required
-cache:
-  pip: true
+dist: xenial
+language: minimal
 
 env:
   global:
@@ -18,13 +15,6 @@ matrix:
 
 services:
   - docker
-
-addons:
-  apt:
-    sources:
-      - docker-trusty
-    packages:
-      - docker-ce
 
 before_install:
   - sudo apt-get -qq update && sudo apt-get remove -y lxd
