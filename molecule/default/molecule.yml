@@ -25,10 +25,6 @@ platforms:
     source:
       alias: fedora/29/amd64
 
-  # - name: Plex-Fedora28
-  #   source:
-  #     alias: fedora/28/amd64
-
   - name: Plex-Ubuntu1804
     source:
       alias: ubuntu/bionic/amd64

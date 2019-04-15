@@ -8,7 +8,7 @@ env:
 
 matrix:
   include:
-    - env: TAG=2.5    # 2.5.x security only
+    # - env: TAG=2.5    # 2.5.x security only
     - env: TAG=2.6    # 2.6.x bugs and security
     - env: TAG=2.7    # 2.6.x bugs and security
     - env: TAG=devel  # Devel branch source install
@@ -33,7 +33,7 @@ script:
     -w /data/$(basename ~+) \
     -e LOCAL_USER_ID=`id -u $USER` \
     -e LOCAL_GROUP_ID=`getent group lxd | cut -d: -f3` \
-    lansible/ansible-dev-container:$TAG molecule --debug test
+    lansible/ansible-dev-container:$TAG molecule test
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/

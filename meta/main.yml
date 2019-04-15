@@ -7,21 +7,20 @@ galaxy_info:
 
   license: BSD-3-Clause-Clear
 
-  min_ansible_version: 2.4
+  min_ansible_version: 2.6
 
   platforms:
     - name: EL
       versions:
         - 7
-        - 6
 
-#    - name: Fedora
-#      versions:
-#        - 27
-#        - 26
+    - name: Fedora
+      versions:
+        - 29
 
     - name: Ubuntu
       versions:
+        - bionic
         - xenial
         - trusty
 
