@@ -1,9 +1,6 @@
 ---
-dist: trusty
-language: python
-sudo: required
-cache:
-  pip: true
+dist: xenial
+language: minimal
 
 env:
   global:
@@ -11,26 +8,32 @@ env:
 
 matrix:
   include:
-    - env: TAG=2.4  # 2.4.x bugs and security
-    - env: TAG=2.5  # 2.4.x bugs and security
-#    - env: TAG=2.6  # Development
+    # - env: TAG=2.5    # 2.5.x security only
+    - env: TAG=2.6    # 2.6.x bugs and security
+    - env: TAG=2.7    # 2.6.x bugs and security
+    - env: TAG=devel  # Devel branch source install
 
 services:
   - docker
 
-addons:
-  apt:
-    sources:
-      - docker-trusty
-    packages:
-      - docker-ce
+before_install:
+  - sudo apt-get -qq update && sudo apt-get remove -y lxd
 
-before_script:
-  - sudo service docker stop
-  - sudo dockerd -H unix:///var/run/docker.sock -H tcp://127.0.0.1:2375 </dev/null &>/dev/null &
+install:
+  - sudo apt-get -y install snapd
+  - sudo snap install lxd
+  - sudo bash -c 'echo PATH=/snap/bin:$PATH >> /etc/environment'
+  - while [ ! -S /var/snap/lxd/common/lxd/unix.socket ]; do echo "Waiting for LXD socket...";sleep 0.2;done;
+  - sudo lxd init --auto
 
 script:
-  - docker run --net=host -it -v $(pwd):/data/$(basename ~+) -w /data/$(basename ~+) lansible/ansible-dev-container:$TAG molecule converge
+  - |
+    docker run -it -v $(pwd):/data/$(basename ~+) \
+    -v /var/snap/lxd/common/lxd/unix.socket:/var/lib/lxd/unix.socket \
+    -w /data/$(basename ~+) \
+    -e LOCAL_USER_ID=`id -u $USER` \
+    -e LOCAL_GROUP_ID=`getent group lxd | cut -d: -f3` \
+    lansible/ansible-dev-container:$TAG molecule test
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/

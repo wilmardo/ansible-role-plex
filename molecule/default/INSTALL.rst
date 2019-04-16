@@ -5,12 +5,10 @@ Install
 Requirements
 ============
 
-* Docker Engine
-* docker-py
+* LXD
 
 Install
 =======
 
-.. code-block:: bash
-
-  $ sudo pip install docker-py
+No additional python packages required.  Apt installs necessary requirements
+while installing `lxd`.
